@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Retrospectiva de Impressoras</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <div>
+      <p class="eyebrow">Retrospectiva de impressoras</p>
+      <h1>Páginas impressas</h1>
+    </div>
+    <p class="lead" id="period-note">Carregando dados…</p>
+  </header>
+
+  <section class="general" aria-label="Indicadores gerais" id="general"></section>
+
+  <section aria-labelledby="h-printers">
+    <h2 id="h-printers" class="sec">Impressoras</h2>
+    <div class="printers" id="printers"></div>
+  </section>
+
+  <section class="report" id="report" aria-live="polite" hidden>
+    <div class="report-head">
+      <div>
+        <p class="eyebrow" id="report-eyebrow"></p>
+        <h2 class="report-title" id="report-title"></h2>
+        <p class="meta mono" id="report-meta"></p>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn primary" id="open-stories">Ver retrospectiva</button>
+        <a class="btn" id="pdf-link" target="_blank" rel="noopener" hidden>Relatório original (PDF)</a>
+      </div>
+    </div>
+
+    <form class="filters" id="filters" autocomplete="off">
+      <label for="f-from">De<input type="date" id="f-from" name="from"></label>
+      <label for="f-to">Até<input type="date" id="f-to" name="to"></label>
+      <button type="button" class="btn" id="f-clear">Período completo</button>
+    </form>
+
+    <div class="empty" id="empty" hidden></div>
+
+    <div id="report-body">
+      <div class="cards" id="cards"></div>
+
+      <div class="grid">
+        <article class="panel">
+          <h3>Por dia da semana</h3>
+          <div class="wk" id="wk-chart" role="img" aria-label="Páginas por dia da semana"></div>
+        </article>
+        <article class="panel">
+          <h3>Por mês</h3>
+          <div class="mo" id="mo-chart" role="img" aria-label="Páginas por mês"></div>
+        </article>
+        <article class="panel wide">
+          <h3>Por semana <span class="muted mono" id="weeks-note"></span></h3>
+          <div class="weeks" id="wk-bars" role="img" aria-label="Páginas por semana"></div>
+        </article>
+        <article class="panel">
+          <h3>Dias mais intensos</h3>
+          <ol class="rank" id="rank-days"></ol>
+        </article>
+        <article class="panel">
+          <h3>Toner</h3>
+          <ul class="timeline" id="toner"></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot mono">Dados em <code>dados/</code> · relatórios originais em <code>pdf/</code></footer>
+</div>
+
+<!-- Retrospectiva em stories -->
+<div class="stories" id="stories" role="dialog" aria-modal="true" aria-label="Retrospectiva em stories" hidden>
+  <div class="stage" id="stage">
+    <div class="bars" id="bars" aria-hidden="true"></div>
+    <button class="zone zone-prev" id="prev" type="button" aria-label="Voltar"></button>
+    <button class="zone zone-next" id="next" type="button" aria-label="Avançar"></button>
+    <div id="slides"></div>
+  </div>
+  <button class="close" id="close-stories" type="button" aria-label="Fechar retrospectiva">Fechar</button>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

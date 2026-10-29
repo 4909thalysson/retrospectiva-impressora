@@ -1,0 +1,23 @@
+[
+ {
+  "id": "impressora-01",
+  "nome": "Recepção",
+  "local": "Recepção",
+  "arquivo": "dados/impressora-01.json",
+  "pdf": "pdf/impressora-01-recepcao.pdf"
+ },
+ {
+  "id": "impressora-02",
+  "nome": "Impressora 02",
+  "local": "CQB",
+  "arquivo": "dados/impressora-02.json",
+  "pdf": null
+ },
+ {
+  "id": "impressora-03",
+  "nome": "Impressora 03",
+  "local": "A definir",
+  "arquivo": "dados/impressora-03.json",
+  "pdf": null
+ }
+]

@@ -1,0 +1,486 @@
+{
+ "id": "impressora-01",
+ "leituras": [
+  {
+   "data": "2026-06-08",
+   "contador_anterior": 77892,
+   "contador_atual": 77906,
+   "paginas": 14,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-06-17",
+   "contador_anterior": 77906,
+   "contador_atual": 77930,
+   "paginas": 24,
+   "nivel_toner": 100,
+   "troca_toner": true
+  },
+  {
+   "data": "2026-06-18",
+   "contador_anterior": 77930,
+   "contador_atual": 78000,
+   "paginas": 70,
+   "nivel_toner": 100,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-06-19",
+   "contador_anterior": 78000,
+   "contador_atual": 78098,
+   "paginas": 98,
+   "nivel_toner": 100,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-06-22",
+   "contador_anterior": 78098,
+   "contador_atual": 78207,
+   "paginas": 109,
+   "nivel_toner": 100,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-06-22",
+   "contador_anterior": 78207,
+   "contador_atual": 78243,
+   "paginas": 36,
+   "nivel_toner": 100,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-06-24",
+   "contador_anterior": 78243,
+   "contador_atual": 78410,
+   "paginas": 167,
+   "nivel_toner": 90,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-06-24",
+   "contador_anterior": 78410,
+   "contador_atual": 78431,
+   "paginas": 21,
+   "nivel_toner": 90,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-06-26",
+   "contador_anterior": 78431,
+   "contador_atual": 78621,
+   "paginas": 190,
+   "nivel_toner": 80,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-06-29",
+   "contador_anterior": 78621,
+   "contador_atual": 78691,
+   "paginas": 70,
+   "nivel_toner": 80,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-06-30",
+   "contador_anterior": 78691,
+   "contador_atual": 78802,
+   "paginas": 111,
+   "nivel_toner": 60,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-07-01",
+   "contador_anterior": 78802,
+   "contador_atual": 78803,
+   "paginas": 1,
+   "nivel_toner": 80,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-07-03",
+   "contador_anterior": 78803,
+   "contador_atual": 78910,
+   "paginas": 107,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-07-07",
+   "contador_anterior": 78910,
+   "contador_atual": 79083,
+   "paginas": 173,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-07-10",
+   "contador_anterior": 79083,
+   "contador_atual": 79244,
+   "paginas": 161,
+   "nivel_toner": 10,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-07-13",
+   "contador_anterior": 79244,
+   "contador_atual": 79409,
+   "paginas": 165,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-07-13",
+   "contador_anterior": 79409,
+   "contador_atual": 79424,
+   "paginas": 15,
+   "nivel_toner": 5,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-07-16",
+   "contador_anterior": 79424,
+   "contador_atual": 79441,
+   "paginas": 17,
+   "nivel_toner": 5,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-07-17",
+   "contador_anterior": 79441,
+   "contador_atual": 79485,
+   "paginas": 44,
+   "nivel_toner": 100,
+   "troca_toner": true
+  },
+  {
+   "data": "2026-07-21",
+   "contador_anterior": 79485,
+   "contador_atual": 79571,
+   "paginas": 86,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-07-24",
+   "contador_anterior": 79571,
+   "contador_atual": 79810,
+   "paginas": 239,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-07-24",
+   "contador_anterior": 79810,
+   "contador_atual": 79927,
+   "paginas": 117,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-07-29",
+   "contador_anterior": 79927,
+   "contador_atual": 80185,
+   "paginas": 258,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-07-31",
+   "contador_anterior": 80185,
+   "contador_atual": 80409,
+   "paginas": 224,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-08-04",
+   "contador_anterior": 80409,
+   "contador_atual": 80458,
+   "paginas": 49,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-08-10",
+   "contador_anterior": 80458,
+   "contador_atual": 80833,
+   "paginas": 375,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-08-12",
+   "contador_anterior": 80833,
+   "contador_atual": 80954,
+   "paginas": 121,
+   "nivel_toner": 10,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-08-13",
+   "contador_anterior": 80954,
+   "contador_atual": 80975,
+   "paginas": 21,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-08-17",
+   "contador_anterior": 80975,
+   "contador_atual": 81060,
+   "paginas": 85,
+   "nivel_toner": 10,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-08-21",
+   "contador_anterior": 81060,
+   "contador_atual": 81302,
+   "paginas": 242,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-08-24",
+   "contador_anterior": 81302,
+   "contador_atual": 81398,
+   "paginas": 96,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-08-24",
+   "contador_anterior": 81398,
+   "contador_atual": 81528,
+   "paginas": 130,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-08-27",
+   "contador_anterior": 81528,
+   "contador_atual": 81712,
+   "paginas": 184,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-08-28",
+   "contador_anterior": 81712,
+   "contador_atual": 81723,
+   "paginas": 11,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-08-31",
+   "contador_anterior": 81723,
+   "contador_atual": 82037,
+   "paginas": 314,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-09-04",
+   "contador_anterior": 82037,
+   "contador_atual": 82346,
+   "paginas": 309,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-09-04",
+   "contador_anterior": 82346,
+   "contador_atual": 82382,
+   "paginas": 36,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-09-08",
+   "contador_anterior": 82382,
+   "contador_atual": 82463,
+   "paginas": 81,
+   "nivel_toner": 20,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-09-10",
+   "contador_anterior": 82463,
+   "contador_atual": 82544,
+   "paginas": 81,
+   "nivel_toner": 10,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-09-15",
+   "contador_anterior": 82544,
+   "contador_atual": 82591,
+   "paginas": 47,
+   "nivel_toner": 10,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-09-16",
+   "contador_anterior": 82591,
+   "contador_atual": 82596,
+   "paginas": 5,
+   "nivel_toner": 100,
+   "troca_toner": true
+  },
+  {
+   "data": "2026-09-18",
+   "contador_anterior": 82596,
+   "contador_atual": 82778,
+   "paginas": 182,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-09-21",
+   "contador_anterior": 82778,
+   "contador_atual": 82816,
+   "paginas": 38,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-09-23",
+   "contador_anterior": 82816,
+   "contador_atual": 82899,
+   "paginas": 83,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-09-25",
+   "contador_anterior": 82899,
+   "contador_atual": 83055,
+   "paginas": 156,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-09-28",
+   "contador_anterior": 83055,
+   "contador_atual": 83191,
+   "paginas": 136,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-10-01",
+   "contador_anterior": 83191,
+   "contador_atual": 83307,
+   "paginas": 116,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-10-05",
+   "contador_anterior": 83307,
+   "contador_atual": 83618,
+   "paginas": 311,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-10-07",
+   "contador_anterior": 83618,
+   "contador_atual": 83793,
+   "paginas": 175,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-10-08",
+   "contador_anterior": 83793,
+   "contador_atual": 83896,
+   "paginas": 103,
+   "nivel_toner": 20,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-10-14",
+   "contador_anterior": 83896,
+   "contador_atual": 84001,
+   "paginas": 105,
+   "nivel_toner": 10,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-10-16",
+   "contador_anterior": 84001,
+   "contador_atual": 84075,
+   "paginas": 74,
+   "nivel_toner": 10,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-10-19",
+   "contador_anterior": 84075,
+   "contador_atual": 84096,
+   "paginas": 21,
+   "nivel_toner": 10,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-10-20",
+   "contador_anterior": 84096,
+   "contador_atual": 84121,
+   "paginas": 25,
+   "nivel_toner": 10,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-10-22",
+   "contador_anterior": 84121,
+   "contador_atual": 84150,
+   "paginas": 29,
+   "nivel_toner": 100,
+   "troca_toner": true
+  },
+  {
+   "data": "2026-10-23",
+   "contador_anterior": 84150,
+   "contador_atual": 84242,
+   "paginas": 92,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-10-26",
+   "contador_anterior": 84242,
+   "contador_atual": 84306,
+   "paginas": 64,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-10-26",
+   "contador_anterior": 84306,
+   "contador_atual": 84331,
+   "paginas": 25,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-10-27",
+   "contador_anterior": 84331,
+   "contador_atual": 84452,
+   "paginas": 121,
+   "nivel_toner": null,
+   "troca_toner": false
+  },
+  {
+   "data": "2026-10-28",
+   "contador_anterior": 84452,
+   "contador_atual": 84476,
+   "paginas": 24,
+   "nivel_toner": null,
+   "troca_toner": false
+  }
+ ],
+ "observacoes": "Extraído do relatório 'Páginas Impressas · Recepção'. nivel_toner em %, troca_toner marcada com Y no relatório."
+}
