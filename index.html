@@ -1,15 +1,10 @@
-<!doctype html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta name="claude:viewport-fit-sides" content="cover">
 <title>Retrospectiva de Impressoras</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-</head>
-<body>
 <div class="page">
 
   <header class="top">
@@ -86,10 +81,18 @@
     <button class="zone zone-prev" id="prev" type="button" aria-label="Voltar"></button>
     <button class="zone zone-next" id="next" type="button" aria-label="Avançar"></button>
     <div id="slides"></div>
+    <div class="share" id="share">
+      <button type="button" class="chip" id="save-video">Salvar vídeo</button>
+      <button type="button" class="chip alt" id="share-all" hidden>Compartilhar vídeo</button>
+      <button type="button" class="chip alt" id="save-one">Imagem deste slide</button>
+      <button type="button" class="chip alt" id="save-all">Todas as imagens</button>
+      <span class="share-msg mono" id="share-msg" role="status" aria-live="polite"></span>
+    </div>
   </div>
   <button class="close" id="close-stories" type="button" aria-label="Fechar retrospectiva">Fechar</button>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="app.js"></script>
-</body>
-</html>
+
+</body></html>
