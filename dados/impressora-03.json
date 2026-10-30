@@ -1,5 +1,141 @@
 {
- "id": "impressora-03",
- "leituras": [],
- "observacoes": "Sem dados ainda. Preencha 'leituras' com o mesmo formato de impressora-01.json."
+  "id": "impressora-almoxarifado",
+  "leituras": [
+    {
+      "data": "2026-09-04",
+      "contador_anterior": 3988,
+      "contador_atual": 3988,
+      "paginas": 0,
+      "nivel_toner": 40,
+      "troca_toner": false
+    },
+    {
+      "data": "2026-09-04",
+      "contador_anterior": 3988,
+      "contador_atual": 3990,
+      "paginas": 2,
+      "nivel_toner": 40,
+      "troca_toner": false
+    },
+    {
+      "data": "2026-09-08",
+      "contador_anterior": 3990,
+      "contador_atual": 4006,
+      "paginas": 16,
+      "nivel_toner": 40,
+      "troca_toner": false
+    },
+    {
+      "data": "2026-09-10",
+      "contador_anterior": 4006,
+      "contador_atual": 4010,
+      "paginas": 4,
+      "nivel_toner": 30,
+      "troca_toner": false
+    },
+    {
+      "data": "2026-09-15",
+      "contador_anterior": 4010,
+      "contador_atual": 4035,
+      "paginas": 25,
+      "nivel_toner": 30,
+      "troca_toner": false
+    },
+    {
+      "data": "2026-09-16",
+      "contador_anterior": 4035,
+      "contador_atual": 4037,
+      "paginas": 2,
+      "nivel_toner": 30,
+      "troca_toner": false
+    },
+    {
+      "data": "2026-09-18",
+      "contador_anterior": 4037,
+      "contador_atual": 4046,
+      "paginas": 9,
+      "nivel_toner": 30,
+      "troca_toner": false
+    },
+    {
+      "data": "2026-09-21",
+      "contador_anterior": 4046,
+      "contador_atual": 4048,
+      "paginas": 2,
+      "nivel_toner": 30,
+      "troca_toner": false
+    },
+    {
+      "data": "2026-09-23",
+      "contador_anterior": 4048,
+      "contador_atual": 4052,
+      "paginas": 4,
+      "nivel_toner": 30,
+      "troca_toner": false
+    },
+    {
+      "data": "2026-09-25",
+      "contador_anterior": 4052,
+      "contador_atual": 4066,
+      "paginas": 14,
+      "nivel_toner": 30,
+      "troca_toner": false
+    },
+    {
+      "data": "2026-09-28",
+      "contador_anterior": 4066,
+      "contador_atual": 4072,
+      "paginas": 6,
+      "nivel_toner": null,
+      "troca_toner": false
+    },
+    {
+      "data": "2026-10-16",
+      "contador_anterior": 4072,
+      "contador_atual": 4114,
+      "paginas": 42,
+      "nivel_toner": 30,
+      "troca_toner": false
+    },
+    {
+      "data": "2026-10-21",
+      "contador_anterior": 4114,
+      "contador_atual": 4119,
+      "paginas": 5,
+      "nivel_toner": 20,
+      "troca_toner": false
+    },
+    {
+      "data": "2026-10-23",
+      "contador_anterior": 4119,
+      "contador_atual": 4127,
+      "paginas": 8,
+      "nivel_toner": 20,
+      "troca_toner": false
+    },
+    {
+      "data": "2026-10-26",
+      "contador_anterior": 4127,
+      "contador_atual": 4131,
+      "paginas": 4,
+      "nivel_toner": 20,
+      "troca_toner": false
+    },
+    {
+      "data": "2026-10-27",
+      "contador_anterior": 4131,
+      "contador_atual": 4137,
+      "paginas": 6,
+      "nivel_toner": 20,
+      "troca_toner": false
+    },
+    {
+      "data": "2026-10-28",
+      "contador_anterior": 4137,
+      "contador_atual": 4152,
+      "paginas": 15,
+      "nivel_toner": 20,
+      "troca_toner": false
+    }
+  ]
 }
