@@ -8,15 +8,15 @@
  },
  {
   "id": "impressora-02",
-  "nome": "Impressora 02",
+  "nome": "CQB",
   "local": "CQB",
   "arquivo": "dados/impressora-02.json",
   "pdf": null
  },
  {
   "id": "impressora-03",
-  "nome": "Impressora 03",
-  "local": "A definir",
+  "nome": "Almoxarifado",
+  "local": "Almoxarifado",
   "arquivo": "dados/impressora-03.json",
   "pdf": null
  }
