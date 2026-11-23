@@ -192,7 +192,7 @@
       return '<div class="card-wrap rise" style="--d:0"><canvas id="cardCanvas" width="1080" height="1920" aria-label="Cartão-resumo da retrospectiva"></canvas></div>' +
         '<div class="actions rise" style="--d:2">' +
         '<button class="btn" id="btnDownload" type="button">⬇ Baixar imagem</button>' +
-        '<button class="btn ghost" id="btnShare" type="button">↗ Compartilhar</button>' +
+        '<button class="btn ghost" id="btnShare" type="button">↗ Compartilhar vídeo</button>' +
         '<button class="replay" id="btnReplay" type="button">↺ Rever do início</button></div>';
     } }
   ];
@@ -313,19 +313,40 @@
     });
   }
 
+  function baixarVideo(video) {
+    var url = URL.createObjectURL(video.blob), a = document.createElement('a');
+    a.href = url; a.download = video.filename; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 10000);
+    toast('Vídeo gerado: ' + video.filename);
+  }
+
   function compartilhar() {
-    return cardBlob().then(function (blob) {
-      var file = new File([blob], FILE, { type: 'image/png' });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        return navigator.share({ files: [file], title: 'Retrospectiva TI', text: SHARE_TXT }).catch(function (e) {
-          if (e && e.name !== 'AbortError') toast('Não foi possível compartilhar');
-        });
+    var wasPaused = paused;
+    if (!wasPaused) setPaused(true);
+    toast('Preparando vídeo da retrospectiva…');
+    return window.GIVideoExport.create(els, frame, 'retrospectiva-pipefy', function (message) {
+      toast(message);
+    }).then(function (video) {
+      var file = new File([video.blob], video.filename, { type: video.blob.type });
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        return navigator.share({ files: [file], title: 'Retrospectiva TI · Demandas Pipefy', text: SHARE_TXT })
+          .catch(function (error) {
+            if (error && error.name === 'AbortError') return;
+            baixarVideo(video);
+            toast('Não foi possível abrir o compartilhamento. O vídeo foi baixado.');
+          });
       }
-      // sem suporte a arquivos: baixa a imagem e abre o WhatsApp com o texto
-      return baixar().then(function () {
-        window.open('https://wa.me/?text=' + encodeURIComponent(SHARE_TXT), '_blank', 'noopener');
-        if (navigator.clipboard) navigator.clipboard.writeText(SHARE_TXT).catch(function () {});
-      });
+      baixarVideo(video);
+      if (navigator.clipboard) navigator.clipboard.writeText(SHARE_TXT).catch(function () {});
+      window.open('https://wa.me/?text=' + encodeURIComponent(SHARE_TXT + ' O vídeo foi salvo no dispositivo para anexar à conversa.'), '_blank', 'noopener');
+    }).catch(function (error) {
+      toast(error && error.message ? error.message : 'Não foi possível gerar o vídeo.');
+    }).then(function (result) {
+      if (!wasPaused) setPaused(false);
+      return result;
+    }, function (error) {
+      if (!wasPaused) setPaused(false);
+      throw error;
     });
   }
 

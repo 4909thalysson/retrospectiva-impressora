@@ -185,7 +185,7 @@
       }},
       {theme:'t-lime',final:true,html:function(){
         return '<div class="card-wrap rise" style="--d:0"><canvas id="cardCanvas" width="1080" height="1920" aria-label="Resumo da retrospectiva do setor"></canvas></div>'+
-          '<div class="actions rise" style="--d:2"><button class="btn" id="btnDownload" type="button">⬇ Baixar imagem</button><button class="btn ghost" id="btnShare" type="button">↗ Compartilhar</button><button class="replay" id="btnReplay" type="button">↺ Rever do início</button></div>';
+          '<div class="actions rise" style="--d:2"><button class="btn" id="btnDownload" type="button">⬇ Baixar imagem</button><button class="btn ghost" id="btnShare" type="button">↗ Compartilhar vídeo</button><button class="replay" id="btnReplay" type="button">↺ Rever do início</button></div>';
       }}
     ];
     return slides;
@@ -224,7 +224,31 @@
   function filename(){return 'retrospectiva-'+currentSector.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.png';}
   function shareText(){var d=currentData;return 'Retrospectiva '+d.sector+': '+n(d.total)+' chamados registrados no período de '+(d.inicio?shortDate(d.inicio):'')+' a '+(d.fim?shortDate(d.fim):'')+'.';}
   function download(){return cardBlob().then(function(blob){var url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename();document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},4000);toast('Imagem baixada');});}
-  function share(){return cardBlob().then(function(blob){var f=new File([blob],filename(),{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[f]})){return navigator.share({files:[f],title:'Retrospectiva '+currentSector,text:shareText()}).catch(function(e){if(e.name!=='AbortError')toast('Não foi possível compartilhar');});}return download().then(function(){window.open('https://wa.me/?text='+encodeURIComponent(shareText()),'_blank','noopener');});});}
+  function downloadVideoFile(video){
+    var url=URL.createObjectURL(video.blob),a=document.createElement('a');
+    a.href=url;a.download=video.filename;document.body.appendChild(a);a.click();a.remove();
+    setTimeout(function(){URL.revokeObjectURL(url);},10000);
+    toast('Vídeo gerado: '+video.filename);
+  }
+  function share(){
+    var wasPaused=paused;
+    if(!wasPaused)setPaused(true);
+    toast('Preparando vídeo da retrospectiva…');
+    return window.GIVideoExport.create([].slice.call(stage.children),frame,filename().replace(/\.png$/i,''),function(message){toast(message);})
+      .then(function(video){
+        var f=new File([video.blob],video.filename,{type:video.blob.type});
+        if(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]})){
+          return navigator.share({files:[f],title:'Retrospectiva '+currentSector,text:shareText()}).catch(function(e){
+            if(e&&e.name==='AbortError')return;
+            downloadVideoFile(video);toast('Não foi possível abrir o compartilhamento. O vídeo foi baixado.');
+          });
+        }
+        downloadVideoFile(video);
+        window.open('https://wa.me/?text='+encodeURIComponent(shareText()+' O vídeo foi salvo no dispositivo para anexar à conversa.'),'_blank','noopener');
+      })
+      .catch(function(error){toast(error&&error.message?error.message:'Não foi possível gerar o vídeo.');})
+      .then(function(result){if(!wasPaused)setPaused(false);return result;},function(error){if(!wasPaused)setPaused(false);throw error;});
+  }
 
   function countUp(root){[].forEach.call(root.querySelectorAll('[data-count]'),function(el){var to=+el.getAttribute('data-count');if(REDUCED){el.textContent=n(to);return;}var start=performance.now(),dur=1100;(function tick(t){var p=Math.min(1,(t-start)/dur),e=1-Math.pow(1-p,3);el.textContent=n(Math.round(to*e));if(p<1&&root.classList.contains('active'))requestAnimationFrame(tick);else el.textContent=n(to);})(start);});}
   function schedule(ms){clearTimeout(timer);if(paused||slides[cur].final)return;startedAt=Date.now();remaining=ms;timer=setTimeout(function(){go(cur+1);},ms);}

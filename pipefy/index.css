@@ -155,7 +155,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   transition: height .9s cubic-bezier(.2, .8, .2, 1); transition-delay: calc(var(--i) * 28ms + 300ms);
 }
 .slide.active .chart .col i { height: var(--h); }
-.chart .col.peak i { background: var(--accent); box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 55%, transparent); }
+.chart .col.peak i { background: var(--accent); box-shadow: 0 0 22px var(--accent); }
 .chart .col.part i { background: repeating-linear-gradient(135deg, rgba(244,241,234,.28) 0 3px, rgba(244,241,234,.1) 3px 6px); }
 .chart .col span { font: 500 2.5cqw/1 var(--body); color: var(--muted); height: 2.5cqw; white-space: nowrap; }
 .chart.hours .col span { font-size: 3cqw; }

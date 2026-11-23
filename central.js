@@ -1,13 +1,14 @@
 (function(){
 'use strict';
 var navButtons=[].slice.call(document.querySelectorAll('[data-view]'));
-var home=document.getElementById('home'), moduleView=document.getElementById('module');
+var home=document.getElementById('home'), moduleView=document.getElementById('module'), qrView=document.getElementById('qrcode');
 var frame=document.getElementById('moduleFrame'), title=document.getElementById('moduleTitle');
 var titles={printers:'Retrospectiva de impressoras',pipefy:'Retrospectiva de demandas Pipefy',sectors:'Retrospectivas por setor'};
 var paths={printers:'impressoras/index.html',pipefy:'pipefy/index.html',sectors:'pipefy/setores.html'};
 function openView(view){
-  if(view==='home'){home.hidden=false;moduleView.hidden=true;frame.src='about:blank';}
-  else {home.hidden=true;moduleView.hidden=false;title.textContent=titles[view]||'Retrospectiva';frame.src=paths[view]||'about:blank';}
+  if(view==='home'){home.hidden=false;moduleView.hidden=true;qrView.hidden=true;frame.src='about:blank';}
+  else if(view==='qrcode'){home.hidden=true;moduleView.hidden=true;qrView.hidden=false;frame.src='about:blank';}
+  else {home.hidden=true;moduleView.hidden=false;qrView.hidden=true;title.textContent=titles[view]||'Retrospectiva';frame.src=paths[view]||'about:blank';}
   navButtons.forEach(function(b){b.classList.toggle('active',b.dataset.view===view);});
   window.scrollTo(0,0);
 }
@@ -76,4 +77,63 @@ document.getElementById('xlsxFile').addEventListener('change',function(e){
  reader.onerror=function(){status.textContent='Não foi possível ler o arquivo selecionado.';};
  reader.readAsArrayBuffer(file);
 });
+
+// Gerador local de QR Code para links públicos de vídeos.
+var qrInput=document.getElementById('videoUrl');
+var qrButton=document.getElementById('generateQr');
+var qrClear=document.getElementById('clearQr');
+var qrStatus=document.getElementById('qrStatus');
+var qrResult=document.getElementById('qrResult');
+var qrCanvas=document.getElementById('qrCanvas');
+var qrInstance=null;
+function setQrStatus(message,type){
+  qrStatus.textContent=message;
+  qrStatus.className='qr-status'+(type?' '+type:'');
+}
+function validHttpUrl(value){
+  try{
+    var parsed=new URL(value);
+    return parsed.protocol==='https:'||parsed.protocol==='http:';
+  }catch(_){return false;}
+}
+function generateVideoQr(){
+  var value=qrInput.value.trim();
+  if(!value){setQrStatus('Cole o link público do vídeo para continuar.','error');qrInput.focus();return;}
+  if(!validHttpUrl(value)){setQrStatus('Informe um endereço válido iniciado por https:// ou http://.','error');qrInput.focus();return;}
+  if(!window.QRCode){setQrStatus('A biblioteca de QR Code não carregou. Verifique a conexão e atualize a página.','error');return;}
+  qrCanvas.innerHTML='';
+  qrResult.hidden=false;
+  try{
+    qrInstance=new QRCode(qrCanvas,{text:value,width:440,height:440,colorDark:'#000000',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
+    document.getElementById('openVideo').href=value;
+    setQrStatus('QR Code gerado. Teste o link antes de compartilhar.','success');
+  }catch(error){
+    qrResult.hidden=true;
+    setQrStatus('Não foi possível gerar o QR Code: '+error.message,'error');
+  }
+}
+qrButton.addEventListener('click',generateVideoQr);
+qrInput.addEventListener('keydown',function(event){if(event.key==='Enter')generateVideoQr();});
+qrClear.addEventListener('click',function(){
+  qrInput.value='';qrCanvas.innerHTML='';qrResult.hidden=true;qrInstance=null;setQrStatus('Campo limpo. Cole outro link quando quiser.');
+});
+document.getElementById('downloadQr').addEventListener('click',function(){
+  var image=qrCanvas.querySelector('img');
+  var canvas=qrCanvas.querySelector('canvas');
+  var source=image?image.src:(canvas?canvas.toDataURL('image/png'):null);
+  if(!source){setQrStatus('Gere o QR Code antes de baixar.','error');return;}
+  var link=document.createElement('a');
+  link.href=source;link.download='qr-code-retrospectiva.png';
+  document.body.appendChild(link);link.click();link.remove();
+});
+document.getElementById('copyVideoUrl').addEventListener('click',function(){
+  var value=qrInput.value.trim();
+  if(navigator.clipboard&&window.isSecureContext){
+    navigator.clipboard.writeText(value).then(function(){setQrStatus('Link copiado.','success');}).catch(function(){setQrStatus('Não foi possível copiar automaticamente. Copie o link do campo.','error');});
+  }else{
+    qrInput.focus();qrInput.select();
+    try{document.execCommand('copy');setQrStatus('Link copiado.','success');}catch(_){setQrStatus('Copie o link diretamente do campo.','error');}
+  }
+});
+
 })();

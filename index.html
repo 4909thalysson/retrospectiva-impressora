@@ -17,6 +17,7 @@
     <button class="nav-btn" data-view="printers">Impressoras</button>
     <button class="nav-btn" data-view="pipefy">Demandas Pipefy</button>
     <button class="nav-btn" data-view="sectors">Por setor</button>
+    <button class="nav-btn" data-view="qrcode">Gerar QR Code</button>
   </nav>
 </header>
 <main>
@@ -38,11 +39,49 @@
   </section>
   <footer>GI · TI <span>Central de Retrospectivas</span></footer>
 </section>
+
+<section id="qrcode" class="qr-view" hidden>
+  <div class="qr-heading">
+    <p class="eyebrow">COMPARTILHAMENTO DE RETROSPECTIVAS</p>
+    <h1>Gerar <em>QR Code.</em></h1>
+    <p>Cole o link público do vídeo hospedado no Zoho WorkDrive. O QR Code abrirá o endereço informado diretamente no navegador.</p>
+  </div>
+
+  <div class="qr-panel">
+    <label for="videoUrl">Link público do vídeo</label>
+    <input id="videoUrl" type="url" inputmode="url" autocomplete="url"
+      placeholder="https://workdrive.zoho.com/..." aria-describedby="qrHelp">
+    <small id="qrHelp">Use o link externo de compartilhamento do arquivo, com permissão de acesso para quem receber o QR Code.</small>
+    <div class="qr-actions">
+      <button id="generateQr" type="button" class="qr-primary">Gerar QR Code</button>
+      <button id="clearQr" type="button" class="qr-secondary">Limpar</button>
+    </div>
+    <p id="qrStatus" class="qr-status" role="status" aria-live="polite"></p>
+
+    <div id="qrResult" class="qr-result" hidden>
+      <div class="qr-image-wrap">
+        <div id="qrCanvas" aria-label="QR Code do vídeo"></div>
+      </div>
+      <div class="qr-result-copy">
+        <strong>QR Code pronto</strong>
+        <span>Ao escanear, o dispositivo abrirá o link do vídeo.</span>
+        <div class="qr-result-actions">
+          <button id="downloadQr" type="button" class="qr-primary">Baixar QR Code PNG</button>
+          <button id="copyVideoUrl" type="button" class="qr-secondary">Copiar link</button>
+          <a id="openVideo" class="qr-secondary qr-open" href="#" target="_blank" rel="noopener">Testar link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="qr-note">Importante: a reprodução direta depende das permissões e do tipo de link fornecido pelo Zoho WorkDrive. Se o Zoho abrir uma página de visualização, será necessário usar um link direto de download/visualização compatível.</p>
+</section>
+
 <section id="module" class="module-view" hidden>
   <div class="module-toolbar"><button id="backHome" class="back-btn">← Visão geral</button><span id="moduleTitle">Módulo</span></div>
   <iframe id="moduleFrame" title="Módulo de retrospectiva" src="about:blank"></iframe>
 </section>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="central.js"></script>
 </body></html>
