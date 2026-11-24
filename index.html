@@ -40,18 +40,10 @@
   <section class="release-admin">
     <div>
       <p class="eyebrow">ACESSO PÚBLICO</p>
-      <h2>Agendar divulgação</h2>
-      <p>Defina quando a busca de colaboradores será liberada na página pública. A data fica salva somente neste navegador.</p>
+      <h2>Data de divulgação</h2>
+      <p>Configure a data uma vez em <code>GI_RETROSPECTIVE_RELEASE_AT</code>, no arquivo <code>config-publico.js</code>, e publique a alteração. Todos os dispositivos mostrarão a mesma contagem.</p>
     </div>
-    <form id="releaseForm" class="release-admin-form">
-      <label for="releaseDate">Data e hora da divulgação</label>
-      <input id="releaseDate" type="datetime-local" required>
-      <div class="release-admin-actions">
-        <button class="qr-primary" type="submit">Salvar agendamento</button>
-        <button class="qr-secondary" id="clearRelease" type="button">Remover agendamento</button>
-      </div>
-      <p id="releaseAdminStatus" class="release-admin-status" role="status" aria-live="polite"></p>
-    </form>
+    <p id="releaseScheduleStatus" class="release-schedule-status" role="status" aria-live="polite"></p>
   </section>
   <footer>GI · TI <span>Central de Retrospectivas</span></footer>
 </section>
@@ -60,7 +52,7 @@
   <div class="qr-heading">
     <p class="eyebrow">ACESSO DOS COLABORADORES</p>
     <h1>QR Code da <em>retrospectiva.</em></h1>
-    <p>Gere um QR Code que direciona o colaborador à página pública de identificação. Depois de informar nome e setor, ele verá somente as retrospectivas associadas ao cadastro.</p>
+    <p>Gere um QR Code geral para a página de acesso ou selecione um colaborador para criar um QR individual, com o código já preenchido.</p>
   </div>
 
   <div class="qr-panel">
@@ -68,6 +60,11 @@
     <input id="videoUrl" type="url" inputmode="url" autocomplete="url" readonly
       aria-describedby="qrHelp">
     <small id="qrHelp">O endereço é preenchido automaticamente com base na hospedagem da Central. Se necessário, ajuste GI_PUBLIC_ACCESS_URL no arquivo config-publico.js.</small>
+    <label for="qrCollaborator" class="qr-collaborator-label">Colaborador (opcional)</label>
+    <select id="qrCollaborator" aria-describedby="qrCollaboratorHelp">
+      <option value="">QR Code geral — sem código individual</option>
+    </select>
+    <small id="qrCollaboratorHelp">Selecione um colaborador para incluir o código no QR e exibi-lo abaixo da imagem.</small>
     <div class="qr-actions">
       <button id="generateQr" type="button" class="qr-primary">Gerar QR Code</button>
       <button id="clearQr" type="button" class="qr-secondary">Atualizar link</button>
@@ -77,19 +74,20 @@
     <div id="qrResult" class="qr-result" hidden>
       <div class="qr-image-wrap">
         <div id="qrCanvas" aria-label="QR Code da página pública"></div>
+        <p id="qrCodeCaption" class="qr-code-caption" hidden></p>
       </div>
       <div class="qr-result-copy">
         <strong>QR Code pronto</strong>
-        <span>Ao escanear, o colaborador abrirá a página de identificação da retrospectiva.</span>
+        <span id="qrResultDescription">Ao escanear, o colaborador abrirá a página de identificação da retrospectiva.</span>
         <div class="qr-result-actions">
           <button id="downloadQr" type="button" class="qr-primary">Baixar QR Code PNG</button>
-          <button id="copyVideoUrl" type="button" class="qr-secondary">Copiar link público</button>
+          <button id="copyVideoUrl" type="button" class="qr-secondary">Copiar link do QR Code</button>
           <a id="openVideo" class="qr-secondary qr-open" href="#" target="_blank" rel="noopener">Testar página</a>
         </div>
       </div>
     </div>
   </div>
-  <p class="qr-note">O QR Code direciona para a página pública de identificação, não para um vídeo individual. A página carrega os dados de colaboradores.json e exibe os conteúdos liberados no cadastro.</p>
+  <p class="qr-note">O QR Code individual abre a página pública com o código do colaborador preenchido. O código também aparece abaixo da imagem e no PNG baixado.</p>
 </section>
 
 <section id="module" class="module-view" hidden>

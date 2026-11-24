@@ -10,15 +10,15 @@
   "id": "impressora-02",
   "nome": "CQB",
   "local": "CQB",
-  "arquivo": "pdf/impressora-02-cqb.pdf",
-  "pdf": null
+  "arquivo": "dados/impressora-02.json",
+  "pdf": "pdf/impressora-02-cqb.pdf"
  },
  {
   "id": "impressora-03",
   "nome": "Almoxarifado",
   "local": "Almoxarifado",
-  "arquivo": "pdf/Páginas Impressas · Almoxarifado.pdf",
-  "pdf": null
+  "arquivo": "dados/impressora-03.json",
+  "pdf": "pdf/Páginas Impressas · Almoxarifado.pdf"
  },
   {
   "id": "impressora-04",

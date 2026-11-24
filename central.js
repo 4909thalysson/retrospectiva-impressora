@@ -85,51 +85,23 @@ var qrClear=document.getElementById('clearQr');
 var qrStatus=document.getElementById('qrStatus');
 var qrResult=document.getElementById('qrResult');
 var qrCanvas=document.getElementById('qrCanvas');
+var qrCollaborator=document.getElementById('qrCollaborator');
+var qrCodeCaption=document.getElementById('qrCodeCaption');
 var qrInstance=null;
-var releaseStorageKey='gi_retrospective_release_at';
-var releaseForm=document.getElementById('releaseForm');
-var releaseDateInput=document.getElementById('releaseDate');
-var releaseAdminStatus=document.getElementById('releaseAdminStatus');
+var qrGeneratedUrl='';
+var qrSelectedCode='';
+var qrSelectedName='';
+var releaseScheduleStatus=document.getElementById('releaseScheduleStatus');
+var configuredReleaseAt=String(window.GI_RETROSPECTIVE_RELEASE_AT||'').trim();
+var configuredReleaseTimestamp=configuredReleaseAt?Date.parse(configuredReleaseAt):null;
 
-function showReleaseAdminStatus(message,type){
-  releaseAdminStatus.textContent=message;
-  releaseAdminStatus.className='release-admin-status'+(type?' '+type:'');
+if(!configuredReleaseAt){
+  releaseScheduleStatus.textContent='Nenhuma data configurada. Defina GI_RETROSPECTIVE_RELEASE_AT em config-publico.js.';
+}else if(!/(?:Z|[+-]\d{2}:\d{2})$/i.test(configuredReleaseAt)||!Number.isFinite(configuredReleaseTimestamp)){
+  releaseScheduleStatus.textContent='Data inválida. Use ISO 8601 com fuso, por exemplo 2026-12-01T08:00:00-03:00.';
+}else{
+  releaseScheduleStatus.textContent='Data configurada: '+new Date(configuredReleaseTimestamp).toLocaleString('pt-BR')+'.';
 }
-function loadReleaseDate(){
-  try{
-    var timestamp=Number(localStorage.getItem(releaseStorageKey));
-    if(!timestamp||!isFinite(timestamp))return;
-    var date=new Date(timestamp);
-    releaseDateInput.value=date.getFullYear()+'-'+String(date.getMonth()+1).padStart(2,'0')+'-'+String(date.getDate()).padStart(2,'0')+'T'+String(date.getHours()).padStart(2,'0')+':'+String(date.getMinutes()).padStart(2,'0');
-    showReleaseAdminStatus('Agendamento atual: '+date.toLocaleString('pt-BR')+'.','success');
-  }catch(error){
-    showReleaseAdminStatus('Não foi possível ler o agendamento salvo neste navegador.','error');
-  }
-}
-releaseForm.addEventListener('submit',function(event){
-  event.preventDefault();
-  var timestamp=new Date(releaseDateInput.value).getTime();
-  if(!releaseDateInput.value||!isFinite(timestamp)){
-    showReleaseAdminStatus('Informe uma data e hora válidas.','error');
-    return;
-  }
-  try{
-    localStorage.setItem(releaseStorageKey,String(timestamp));
-    showReleaseAdminStatus('Divulgação agendada para '+new Date(timestamp).toLocaleString('pt-BR')+'.','success');
-  }catch(error){
-    showReleaseAdminStatus('Não foi possível salvar o agendamento neste navegador. Verifique as configurações de armazenamento.','error');
-  }
-});
-document.getElementById('clearRelease').addEventListener('click',function(){
-  try{
-    localStorage.removeItem(releaseStorageKey);
-    releaseDateInput.value='';
-    showReleaseAdminStatus('Agendamento removido. A busca pública ficará bloqueada até definir uma nova data.','success');
-  }catch(error){
-    showReleaseAdminStatus('Não foi possível remover o agendamento salvo neste navegador.','error');
-  }
-});
-loadReleaseDate();
 
 function setQrStatus(message,type){
   qrStatus.textContent=message;
@@ -156,44 +128,112 @@ function refreshPublicAccessUrl(){
   }
 }
 function generateVideoQr(){
-  var value=qrInput.value.trim();
-  if(!value){refreshPublicAccessUrl();value=qrInput.value.trim();}
-  if(!value){setQrStatus('Não foi possível determinar o endereço público da página.','error');return;}
+  var baseUrl=qrInput.value.trim();
+  if(!baseUrl){refreshPublicAccessUrl();baseUrl=qrInput.value.trim();}
+  if(!baseUrl){setQrStatus('Não foi possível determinar o endereço público da página.','error');return;}
   if(!window.QRCode){setQrStatus('A biblioteca de QR Code não carregou. Verifique a conexão e atualize a página.','error');return;}
+  var value=baseUrl;
+  var selectedOption=qrCollaborator.options[qrCollaborator.selectedIndex];
+  qrSelectedCode=qrCollaborator.value;
+  qrSelectedName=selectedOption&&qrSelectedCode?selectedOption.dataset.name:'';
+  if(qrSelectedCode){
+    var codeUrl=new URL(baseUrl);
+    codeUrl.searchParams.set('codigo',qrSelectedCode);
+    value=codeUrl.href;
+  }
   qrCanvas.innerHTML='';
   qrResult.hidden=false;
   try{
     qrInstance=new QRCode(qrCanvas,{text:value,width:440,height:440,colorDark:'#000000',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
+    qrGeneratedUrl=value;
+    qrInput.value=value;
     document.getElementById('openVideo').href=value;
-    setQrStatus('QR Code da página pública gerado. Teste o endereço antes de imprimir.','success');
+    qrCodeCaption.textContent=qrSelectedCode?qrSelectedCode.slice(0,2)+'-'+qrSelectedCode.slice(2):'';
+    qrCodeCaption.hidden=!qrSelectedCode;
+    document.getElementById('qrResultDescription').textContent=qrSelectedCode
+      ?'Acesso de '+qrSelectedName+'. O código já estará preenchido ao abrir o link.'
+      :'Ao escanear, o colaborador abrirá a página de identificação da retrospectiva.';
+    setQrStatus(qrSelectedCode?'QR Code individual gerado. O código aparece abaixo da imagem.':'QR Code da página pública gerado. Teste o endereço antes de imprimir.','success');
   }catch(error){
     qrResult.hidden=true;
     setQrStatus('Não foi possível gerar o QR Code: '+error.message,'error');
   }
 }
 qrButton.addEventListener('click',generateVideoQr);
+qrCollaborator.addEventListener('change',function(){
+  qrCanvas.innerHTML='';
+  qrResult.hidden=true;
+  qrInstance=null;
+  qrGeneratedUrl='';
+  qrCodeCaption.hidden=true;
+  refreshPublicAccessUrl();
+});
+fetch('colaboradores.json',{cache:'no-store'}).then(function(response){
+  if(!response.ok)throw new Error('Não foi possível carregar colaboradores.json.');
+  return response.json();
+}).then(function(data){
+  if(!Array.isArray(data.colaboradores))throw new Error('A lista de colaboradores está em formato inválido.');
+  data.colaboradores.forEach(function(person){
+    var code=String(person.codigo||'').replace(/\D/g,'');
+    if(!/^\d{5}$/.test(code)||!person.nome) return;
+    var option=document.createElement('option');
+    option.value=code;
+    option.dataset.name=person.nome;
+    option.textContent=person.nome+' · '+code.slice(0,2)+'-'+code.slice(2);
+    qrCollaborator.appendChild(option);
+  });
+}).catch(function(error){
+  setQrStatus(error.message+' A geração do QR Code geral continua disponível.','error');
+});
 qrClear.addEventListener('click',function(){
   qrCanvas.innerHTML='';
   qrResult.hidden=true;
   qrInstance=null;
+  qrGeneratedUrl='';
+  qrCodeCaption.hidden=true;
   refreshPublicAccessUrl();
 });
 document.getElementById('downloadQr').addEventListener('click',function(){
-  var image=qrCanvas.querySelector('img');
-  var canvas=qrCanvas.querySelector('canvas');
-  var source=image?image.src:(canvas?canvas.toDataURL('image/png'):null);
+  var qrImage=qrCanvas.querySelector('img');
+  var qrSourceCanvas=qrCanvas.querySelector('canvas');
+  var source=qrImage?qrImage.src:(qrSourceCanvas?qrSourceCanvas.toDataURL('image/png'):null);
   if(!source){setQrStatus('Gere o QR Code antes de baixar.','error');return;}
-  var link=document.createElement('a');
-  link.href=source;link.download='qr-code-acesso-retrospectiva.png';
-  document.body.appendChild(link);link.click();link.remove();
+  function downloadQrImage(image){
+    var output=document.createElement('canvas');
+    var context=output.getContext('2d');
+    var padding=24;
+    var codeHeight=qrSelectedCode?66:0;
+    output.width=image.width+padding*2;
+    output.height=image.height+padding*2+codeHeight;
+    context.fillStyle='#ffffff';
+    context.fillRect(0,0,output.width,output.height);
+    context.drawImage(image,padding,padding);
+    if(qrSelectedCode){
+      context.fillStyle='#111111';
+      context.font='bold 34px sans-serif';
+      context.textAlign='center';
+      context.textBaseline='middle';
+      context.fillText(qrSelectedCode.slice(0,2)+'-'+qrSelectedCode.slice(2),output.width/2,image.height+padding+codeHeight/2);
+    }
+    var link=document.createElement('a');
+    link.href=output.toDataURL('image/png');
+    link.download=qrSelectedCode
+      ?'qr-code-'+qrSelectedName.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-|-$/g,'').toLowerCase()+'.png'
+      :'qr-code-acesso-retrospectiva.png';
+    document.body.appendChild(link);link.click();link.remove();
+  }
+  var image=new Image();
+  image.onload=function(){downloadQrImage(image);};
+  image.onerror=function(){setQrStatus('Não foi possível preparar a imagem do QR Code para download.','error');};
+  image.src=source;
 });
 document.getElementById('copyVideoUrl').addEventListener('click',function(){
-  var value=qrInput.value.trim();
+  var value=qrGeneratedUrl||qrInput.value.trim();
   if(navigator.clipboard&&window.isSecureContext){
-    navigator.clipboard.writeText(value).then(function(){setQrStatus('Link público copiado.','success');}).catch(function(){setQrStatus('Não foi possível copiar automaticamente. Copie o link do campo.','error');});
+    navigator.clipboard.writeText(value).then(function(){setQrStatus('Link do QR Code copiado.','success');}).catch(function(){setQrStatus('Não foi possível copiar automaticamente. Copie o link do campo.','error');});
   }else{
     qrInput.focus();qrInput.select();
-    try{document.execCommand('copy');setQrStatus('Link público copiado.','success');}catch(_){setQrStatus('Copie o link diretamente do campo.','error');}
+    try{document.execCommand('copy');setQrStatus('Link do QR Code copiado.','success');}catch(_){setQrStatus('Copie o link diretamente do campo.','error');}
   }
 });
 refreshPublicAccessUrl();

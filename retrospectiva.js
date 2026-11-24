@@ -3,24 +3,22 @@
 
   var collaborators = [];
   var form = document.getElementById("accessForm");
-  var nameInput = document.getElementById("employeeName");
-  var nameSuggestions = document.getElementById("nameSuggestions");
-  var nameSearchStatus = document.getElementById("nameSearchStatus");
-  var sectorSelect = document.getElementById("employeeSector");
+  var codeInputs = Array.prototype.slice.call(document.querySelectorAll(".code-digit"));
   var accessButton = document.getElementById("accessButton");
   var formStatus = document.getElementById("formStatus");
   var accessPanel = document.getElementById("accessPanel");
   var resultSection = document.getElementById("resultSection");
   var videoGrid = document.getElementById("videoGrid");
   var emptyAccess = document.getElementById("emptyAccess");
-  var activeSuggestion = -1;
-  var selectedCollaborator = null;
-  var releaseStorageKey = "gi_retrospective_release_at";
   var releasePanel = document.getElementById("releasePanel");
   var releaseTitle = document.getElementById("releaseTitle");
   var releaseMessage = document.getElementById("releaseMessage");
   var releaseDateLabel = document.getElementById("releaseDateLabel");
   var collaboratorsLoaded = false;
+  var releaseConfig = String(window.GI_RETROSPECTIVE_RELEASE_AT || "").trim();
+  var releaseTimestamp = releaseConfig ? Date.parse(releaseConfig) : null;
+  var releaseConfigInvalid = Boolean(releaseConfig) &&
+    (!/(?:Z|[+-]\d{2}:\d{2})$/i.test(releaseConfig) || !Number.isFinite(releaseTimestamp));
 
   function normalize(value) {
     return String(value || "")
@@ -35,80 +33,10 @@
     formStatus.textContent = message || "";
   }
 
-  function closeSuggestions() {
-    nameSuggestions.hidden = true;
-    nameInput.setAttribute("aria-expanded", "false");
-    nameInput.removeAttribute("aria-activedescendant");
-    activeSuggestion = -1;
-  }
-
-  function selectCollaborator(person) {
-    selectedCollaborator = person;
-    nameInput.value = person.nome;
-    sectorSelect.value = person.setor;
-    nameSearchStatus.textContent = "";
-    setStatus("");
-    closeSuggestions();
-  }
-
-  function renderSuggestions() {
-    var query = normalize(nameInput.value);
-    nameSuggestions.innerHTML = "";
-    activeSuggestion = -1;
-
-    if (query.length < 2) {
-      nameSearchStatus.textContent = "";
-      closeSuggestions();
-      return;
-    }
-
-    var matches = collaborators.filter(function (person) {
-      return normalize(person.nome).indexOf(query) !== -1;
-    }).slice(0, 8);
-
-    if (!matches.length) {
-      nameSearchStatus.textContent = "Nenhum colaborador encontrado.";
-      closeSuggestions();
-      return;
-    }
-
-    matches.forEach(function (person, index) {
-      var option = document.createElement("li");
-      option.id = "nameSuggestion" + index;
-      option.className = "name-suggestion";
-      option.setAttribute("role", "option");
-      option.setAttribute("aria-selected", "false");
-      option.dataset.index = String(index);
-
-      var name = document.createElement("span");
-      name.textContent = person.nome;
-      var sector = document.createElement("span");
-      sector.className = "name-suggestion-sector";
-      sector.textContent = person.setor;
-      option.appendChild(name);
-      option.appendChild(sector);
-      nameSuggestions.appendChild(option);
-    });
-
-    nameSuggestions.hidden = false;
-    nameInput.setAttribute("aria-expanded", "true");
-    nameSearchStatus.textContent = matches.length === 8
-      ? "Mais de 8 resultados. Continue digitando para refinar."
-      : matches.length + (matches.length === 1 ? " colaborador encontrado." : " colaboradores encontrados.");
-  }
-
-  function setActiveSuggestion(index) {
-    var options = nameSuggestions.querySelectorAll('[role="option"]');
-    if (!options.length) return;
-    activeSuggestion = (index + options.length) % options.length;
-    Array.prototype.forEach.call(options, function (option, optionIndex) {
-      var active = optionIndex === activeSuggestion;
-      option.setAttribute("aria-selected", active ? "true" : "false");
-      if (active) {
-        nameInput.setAttribute("aria-activedescendant", option.id);
-        option.scrollIntoView({ block: "nearest" });
-      }
-    });
+  function getEnteredCode() {
+    return codeInputs.map(function (input) {
+      return input.value;
+    }).join("");
   }
 
   function loadCollaborators() {
@@ -121,44 +49,37 @@
         collaborators = Array.isArray(data.colaboradores) ? data.colaboradores : [];
         if (!collaborators.length) throw new Error("A lista de colaboradores está vazia ou em formato inválido.");
 
-        var sectors = Array.from(new Set(collaborators.map(function (item) {
-          return String(item.setor || "").trim();
-        }).filter(Boolean))).sort(function (a, b) {
-          return a.localeCompare(b, "pt-BR");
-        });
-
-        sectorSelect.innerHTML = '<option value="">Selecione seu setor</option>';
-        sectors.forEach(function (sector) {
-          var option = document.createElement("option");
-          option.value = sector;
-          option.textContent = sector;
-          sectorSelect.appendChild(option);
+        codeInputs.forEach(function (input) {
+          input.disabled = false;
         });
         accessButton.disabled = false;
-        sectorSelect.disabled = false;
-        nameInput.disabled = false;
         collaboratorsLoaded = true;
+        var codeFromUrl = new URLSearchParams(window.location.search).get("codigo") || "";
+        var normalizedCode = codeFromUrl.replace(/\D/g, "");
+        if (/^\d{5}$/.test(normalizedCode)) {
+          normalizedCode.split("").forEach(function (digit, index) {
+            codeInputs[index].value = digit;
+          });
+          setStatus("Código preenchido pelo QR Code. Toque em acessar para continuar.");
+        }
       })
       .catch(function (error) {
-        sectorSelect.innerHTML = '<option value="">Indisponível</option>';
         setStatus(error.message + " Atualize a página ou contate a equipe de TI.");
       });
   }
 
   function updateReleaseState() {
-    var timestamp;
-    try {
-      timestamp = Number(localStorage.getItem(releaseStorageKey));
-    } catch (error) {
+    if (releaseConfigInvalid) {
       releasePanel.hidden = false;
       accessPanel.hidden = true;
-      releaseTitle.textContent = "Não foi possível verificar a liberação";
-      releaseMessage.textContent = "O navegador não permitiu consultar o agendamento. Habilite o armazenamento local e atualize a página.";
+      releaseTitle.textContent = "Data de divulgação inválida";
+      releaseMessage.textContent = "A equipe responsável precisa definir GI_RETROSPECTIVE_RELEASE_AT em config-publico.js no formato ISO 8601 com fuso horário.";
       document.getElementById("countdown").hidden = true;
+      releaseDateLabel.textContent = "";
       return false;
     }
 
-    if (!timestamp || !isFinite(timestamp)) {
+    if (releaseTimestamp === null) {
       releasePanel.hidden = false;
       accessPanel.hidden = true;
       releaseTitle.textContent = "A divulgação ainda não foi agendada";
@@ -168,11 +89,11 @@
       return false;
     }
 
-    var releaseDate = new Date(timestamp);
-    var remaining = timestamp - Date.now();
+    var releaseDate = new Date(releaseTimestamp);
+    var remaining = releaseTimestamp - Date.now();
     if (remaining <= 0) {
       releasePanel.hidden = true;
-      accessPanel.hidden = false;
+      accessPanel.hidden = !resultSection.hidden;
       if (!collaboratorsLoaded) loadCollaborators();
       return true;
     }
@@ -193,52 +114,43 @@
 
   updateReleaseState();
   window.setInterval(updateReleaseState, 1000);
-  window.addEventListener("storage", function (event) {
-    if (event.key === releaseStorageKey) updateReleaseState();
-  });
 
-  nameInput.addEventListener("input", function () {
-    if (selectedCollaborator && normalize(nameInput.value) !== normalize(selectedCollaborator.nome)) {
-      selectedCollaborator = null;
-      sectorSelect.value = "";
-    }
-    setStatus("");
-    renderSuggestions();
-  });
+  codeInputs.forEach(function (input, index) {
+    input.addEventListener("input", function () {
+      var digits = input.value.replace(/\D/g, "");
+      input.value = digits.charAt(0);
+      digits.slice(1, codeInputs.length - index).split("").forEach(function (digit, offset) {
+        codeInputs[index + offset + 1].value = digit;
+      });
+      setStatus("");
+      var nextIndex = Math.min(index + digits.length, codeInputs.length - 1);
+      if (input.value && nextIndex !== index) codeInputs[nextIndex].focus();
+    });
 
-  nameInput.addEventListener("keydown", function (event) {
-    if (event.key === "ArrowDown" && !nameSuggestions.hidden) {
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Backspace" && !input.value && codeInputs[index - 1]) {
+        event.preventDefault();
+        codeInputs[index - 1].value = "";
+        codeInputs[index - 1].focus();
+      } else if (event.key === "ArrowLeft" && codeInputs[index - 1]) {
+        event.preventDefault();
+        codeInputs[index - 1].focus();
+      } else if (event.key === "ArrowRight" && codeInputs[index + 1]) {
+        event.preventDefault();
+        codeInputs[index + 1].focus();
+      }
+    });
+
+    input.addEventListener("paste", function (event) {
+      var pasted = event.clipboardData.getData("text").replace(/\D/g, "");
+      if (!pasted) return;
       event.preventDefault();
-      setActiveSuggestion(activeSuggestion + 1);
-    } else if (event.key === "ArrowUp" && !nameSuggestions.hidden) {
-      event.preventDefault();
-      setActiveSuggestion(activeSuggestion < 0 ? nameSuggestions.children.length - 1 : activeSuggestion - 1);
-    } else if (event.key === "Enter" && activeSuggestion >= 0 && !nameSuggestions.hidden) {
-      event.preventDefault();
-      selectCollaborator(collaborators.filter(function (person) {
-        return normalize(person.nome).indexOf(normalize(nameInput.value)) !== -1;
-      })[activeSuggestion]);
-    } else if (event.key === "Escape") {
-      closeSuggestions();
-    }
-  });
-
-  nameSuggestions.addEventListener("mousedown", function (event) {
-    event.preventDefault();
-  });
-
-  nameSuggestions.addEventListener("click", function (event) {
-    var option = event.target.closest('[role="option"]');
-    if (!option) return;
-    var query = normalize(nameInput.value);
-    var matches = collaborators.filter(function (person) {
-      return normalize(person.nome).indexOf(query) !== -1;
-    }).slice(0, 8);
-    selectCollaborator(matches[Number(option.dataset.index)]);
-  });
-
-  nameInput.addEventListener("blur", function () {
-    window.setTimeout(closeSuggestions, 120);
+      pasted.slice(0, codeInputs.length - index).split("").forEach(function (digit, offset) {
+        codeInputs[index + offset].value = digit;
+      });
+      setStatus("");
+      codeInputs[Math.min(index + pasted.length, codeInputs.length - 1)].focus();
+    });
   });
 
   function getAnimationUrl(key, person) {
@@ -250,11 +162,16 @@
       var printerBySector = {
         almoxarifado: "impressora-03",
         recepcao: "impressora-01",
-        cqb: "impressora-02"
+        cqb: "impressora-02",
+        contabilidade: "impressora-04",
+        producaoarmazem: "impressora-05",
+        producaocampo: "impressora-06"
       };
-      var normalizedSector = normalize(person.setor).replace(/\s/g, "");
+      var normalizedSector = normalize(person.setor).replace(/[^a-z0-9]/g, "");
       var printer = printerBySector[normalizedSector];
-      return "impressoras/index.html?stories=1" + (printer ? "&printer=" + encodeURIComponent(printer) : "");
+      return printer
+        ? "impressoras/index.html?stories=1&printer=" + encodeURIComponent(printer)
+        : "";
     }
 
     return "";
@@ -348,20 +265,18 @@
       return;
     }
 
-    var enteredName = normalize(nameInput.value);
-    var enteredSector = normalize(sectorSelect.value);
-
-    if (!enteredName || !enteredSector) {
-      setStatus("Informe seu nome completo e selecione seu setor.");
+    var enteredCode = getEnteredCode();
+    if (!/^\d{5}$/.test(enteredCode)) {
+      setStatus("Digite os cinco números do seu código de acesso.");
       return;
     }
 
     var person = collaborators.find(function (item) {
-      return normalize(item.nome) === enteredName && normalize(item.setor) === enteredSector;
+      return String(item.codigo || "").replace(/\D/g, "") === enteredCode;
     });
 
     if (!person) {
-      setStatus("Não encontramos uma correspondência para esse nome e setor. Confira os dados e tente novamente.");
+      setStatus("Código não encontrado. Confira os números e tente novamente.");
       return;
     }
 
@@ -372,15 +287,11 @@
     resultSection.hidden = true;
     accessPanel.hidden = false;
     videoGrid.innerHTML = "";
-    nameInput.value = "";
-    selectedCollaborator = null;
-    nameSearchStatus.textContent = "";
-    closeSuggestions();
-    sectorSelect.value = "";
+    codeInputs.forEach(function (input) {
+      input.value = "";
+    });
     setStatus("");
     window.scrollTo({ top: 0, behavior: "smooth" });
-    nameInput.focus();
+    codeInputs[0].focus();
   });
-
-  nameInput.disabled = true;
 })();

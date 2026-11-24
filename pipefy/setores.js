@@ -37,6 +37,7 @@
     'Marketing': ['Marketing'],
     'Planejamento & Controladoria': ['Planej e Controle'],
     'Produção Campo': ['Produção Campo'],
+    'Qualidade Laboratório': ['Laboratório Pulsa', 'CQB', 'Qualidade', 'Qualidade / Produção'],
     'Recepção': ['Recepção'],
     'Recursos Humanos': ['RH'],
     'Refeitório': ['Refeitório'],

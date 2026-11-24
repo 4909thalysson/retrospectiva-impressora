@@ -20,7 +20,16 @@
     if (text != null) e.textContent = text;
     return e;
   }
-  function parseISO(s) { var p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function parseISO(s) {
+    var value = String(s || '').trim();
+    var parts = value.split('/');
+    if (parts.length === 3) {
+      var day = +parts[0], month = +parts[1], year = +parts[2];
+      return new Date(year, month - 1, day);
+    }
+    parts = value.split('-');
+    return new Date(+parts[0], +parts[1] - 1, +parts[2]);
+  }
   function toISO(d) {
     var m = d.getMonth() + 1, day = d.getDate();
     return d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day;
@@ -41,7 +50,18 @@
   }
 
   function compute(p, from, to) {
-    var all = sortedReadings(p);
+    var all = sortedReadings(p).map(function (r) {
+      var copy = Object.assign({}, r);
+      copy.data = toISO(parseISO(r.data));
+      if (!Number.isFinite(Number(copy.paginas))) {
+        if (Number.isFinite(Number(copy.diferenca))) {
+          copy.paginas = Number(copy.diferenca);
+        } else {
+          copy.paginas = Number(copy.contador_atual) - Number(copy.contador_anterior);
+        }
+      }
+      return copy;
+    });
     if (!all.length) return null;
 
     var firstPrev = {};
