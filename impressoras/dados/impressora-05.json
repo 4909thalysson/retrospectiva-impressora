@@ -1,0 +1,101 @@
+{
+  "id": "impressora-05",
+  "leituras": [
+    {
+      "data": "2026-09-04",
+      "contador_anterior": 13290,
+      "contador_atual": 13292,
+      "paginas": 2
+    },
+    {
+      "data": "2026-08-31",
+      "contador_anterior": 13270,
+      "contador_atual": 13290,
+      "paginas": 20
+    },
+    {
+      "data": "2026-08-27",
+      "contador_anterior": 13268,
+      "contador_atual": 13270,
+      "paginas": 2
+    },
+    {
+      "data": "2026-08-24",
+      "contador_anterior": 13267,
+      "contador_atual": 13268,
+      "paginas": 1
+    },
+    {
+      "data": "2026-08-21",
+      "contador_anterior": 13262,
+      "contador_atual": 13267,
+      "paginas": 5
+    },
+    {
+      "data": "2026-08-12",
+      "contador_anterior": 13259,
+      "contador_atual": 13262,
+      "paginas": 3
+    },
+    {
+      "data": "2026-08-04",
+      "contador_anterior": 13255,
+      "contador_atual": 13259,
+      "paginas": 4
+    },
+    {
+      "data": "2026-07-29",
+      "contador_anterior": 13252,
+      "contador_atual": 13255,
+      "paginas": 3
+    },
+    {
+      "data": "2026-07-24",
+      "contador_anterior": 13250,
+      "contador_atual": 13252,
+      "paginas": 2
+    },
+    {
+      "data": "2026-07-21",
+      "contador_anterior": 13249,
+      "contador_atual": 13250,
+      "paginas": 1
+    },
+    {
+      "data": "2026-07-15",
+      "contador_anterior": 13239,
+      "contador_atual": 13249,
+      "paginas": 10
+    },
+    {
+      "data": "2026-07-03",
+      "contador_anterior": 13198,
+      "contador_atual": 13239,
+      "paginas": 41
+    },
+    {
+      "data": "2026-06-29",
+      "contador_anterior": 13197,
+      "contador_atual": 13198,
+      "paginas": 1
+    },
+    {
+      "data": "2026-06-25",
+      "contador_anterior": 13188,
+      "contador_atual": 13197,
+      "paginas": 9
+    },
+    {
+      "data": "2026-06-24",
+      "contador_anterior": 13145,
+      "contador_atual": 13188,
+      "paginas": 43
+    },
+    {
+      "data": "2026-06-08",
+      "contador_anterior": 13145,
+      "contador_atual": 13145,
+      "paginas": 0
+    }
+  ]
+}

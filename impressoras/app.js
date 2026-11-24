@@ -9,6 +9,7 @@
   var DAY = 86400000;
 
   var state = { printers: [], selected: null, from: '', to: '' };
+  var pageParams = new URLSearchParams(window.location.search);
 
   /* ---------- utilidades ---------- */
   function $(id) { return document.getElementById(id); }
@@ -125,11 +126,18 @@
       }));
     }).then(function (printers) {
       state.printers = printers;
-      var first = printers.filter(function (p) { return p.stats; })[0] || printers[0];
+      var requestedPrinter = pageParams.get('printer');
+      var first = printers.filter(function (p) { return p.meta.id === requestedPrinter && p.stats; })[0]
+        || printers.filter(function (p) { return p.stats; })[0]
+        || printers[0];
       renderGeneral();
       renderPrinters();
-      if (first) select(first.meta.id);
+      if (first) {
+        select(first.meta.id);
+        if (pageParams.get('stories') === '1') openStories();
+      }
     }).catch(function (err) {
+      document.body.classList.remove('stories-only');
       $('period-note').textContent = 'Não foi possível carregar os arquivos de dados.';
       var box = $('general');
       box.textContent = '';
@@ -363,7 +371,7 @@
 
   /* ---------- stories ---------- */
   var stories = $('stories'), stage = $('stage'), slidesBox = $('slides'), barsBox = $('bars');
-  var slides = [], bars = [], idx = 0, elapsed = 0, last = 0, paused = false, raf = 0, opener = null;
+  var slides = [], bars = [], idx = 0, elapsed = 0, last = 0, paused = false, raf = 0;
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function slide(theme) {
@@ -529,24 +537,21 @@
   function openStories() {
     var p = current();
     var s = p && p.stats ? compute(p.data, state.from, state.to) : null;
-    if (!s) return;
-    opener = document.activeElement;
+    if (!s) {
+      document.body.classList.remove('stories-only');
+      return;
+    }
     state.cur = s;
     videoCache = null;
     say('');
     buildStories(p, s);
+    document.body.classList.add('stories-only');
     stories.hidden = false;
     paused = false;
     show(0);
     last = performance.now();
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(tick);
-    $('close-stories').focus();
-  }
-  function closeStories() {
-    stories.hidden = true;
-    cancelAnimationFrame(raf);
-    if (opener && opener.focus) opener.focus();
   }
 
 
@@ -762,12 +767,10 @@
   });
   $('prev').addEventListener('click', function () { if (!held) show(idx - 1); held = false; });
   $('next').addEventListener('click', function () { if (!held && idx < slides.length - 1) show(idx + 1); held = false; });
-  $('close-stories').addEventListener('click', closeStories);
   $('open-stories').addEventListener('click', openStories);
   document.addEventListener('keydown', function (e) {
     if (stories.hidden) return;
-    if (e.key === 'Escape') closeStories();
-    else if (e.key === 'ArrowRight') { if (idx < slides.length - 1) show(idx + 1); }
+    if (e.key === 'ArrowRight') { if (idx < slides.length - 1) show(idx + 1); }
     else if (e.key === 'ArrowLeft') show(idx - 1);
   });
   document.addEventListener('visibilitychange', function () { paused = document.hidden; last = performance.now(); });

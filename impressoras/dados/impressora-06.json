@@ -1,0 +1,236 @@
+{
+  "id": "impressora-06",
+  "leituras": [
+    {
+      "data": "23/11/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101365,
+      "contador_atual": 101379,
+      "diferenca": 14,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "16/11/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101329,
+      "contador_atual": 101365,
+      "diferenca": 36,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "10/11/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101326,
+      "contador_atual": 101329,
+      "diferenca": 3,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "06/11/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101319,
+      "contador_atual": 101326,
+      "diferenca": 7,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "04/11/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101283,
+      "contador_atual": 101319,
+      "diferenca": 36,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "29/10/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101279,
+      "contador_atual": 101283,
+      "diferenca": 4,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "28/10/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101274,
+      "contador_atual": 101279,
+      "diferenca": 5,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "27/10/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101272,
+      "contador_atual": 101274,
+      "diferenca": 2,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "26/10/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101266,
+      "contador_atual": 101272,
+      "diferenca": 6,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "22/10/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101265,
+      "contador_atual": 101266,
+      "diferenca": 1,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "20/10/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101221,
+      "contador_atual": 101265,
+      "diferenca": 44,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "19/10/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101217,
+      "contador_atual": 101221,
+      "diferenca": 4,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "16/10/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101202,
+      "contador_atual": 101217,
+      "diferenca": 15,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "14/10/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101183,
+      "contador_atual": 101202,
+      "diferenca": 19,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "08/10/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101180,
+      "contador_atual": 101183,
+      "diferenca": 3,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "07/10/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101126,
+      "contador_atual": 101180,
+      "diferenca": 54,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "05/10/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101110,
+      "contador_atual": 101126,
+      "diferenca": 16,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "23/09/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101107,
+      "contador_atual": 101110,
+      "diferenca": 3,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "21/09/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101085,
+      "contador_atual": 101107,
+      "diferenca": 22,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "04/09/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101046,
+      "contador_atual": 101085,
+      "diferenca": 39,
+      "toner": null,
+      "troca": null
+    },
+    {
+      "data": "24/08/2026",
+      "numero": 1,
+      "impressora": "DCP-8157DN",
+      "setor": "Produção Campo",
+      "contador_anterior": 101046,
+      "contador_atual": 101046,
+      "diferenca": 0,
+      "toner": null,
+      "troca": null
+    }
+  ]
+}

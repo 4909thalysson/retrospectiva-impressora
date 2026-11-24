@@ -1,0 +1,353 @@
+{
+  "id": "impressora-04",
+  "leituras": [
+    {
+      "data": "2026-11-23",
+      "contador_anterior": 311613,
+      "contador_atual": 311696,
+      "paginas": 83
+    },
+    {
+      "data": "2026-11-16",
+      "contador_anterior": 311580,
+      "contador_atual": 311613,
+      "paginas": 33
+    },
+    {
+      "data": "2026-11-16",
+      "contador_anterior": 311472,
+      "contador_atual": 311580,
+      "paginas": 108
+    },
+    {
+      "data": "2026-11-10",
+      "contador_anterior": 311440,
+      "contador_atual": 311472,
+      "paginas": 32
+    },
+    {
+      "data": "2026-11-06",
+      "contador_anterior": 311399,
+      "contador_atual": 311440,
+      "paginas": 41
+    },
+    {
+      "data": "2026-11-04",
+      "contador_anterior": 311234,
+      "contador_atual": 311399,
+      "paginas": 165
+    },
+    {
+      "data": "2026-10-29",
+      "contador_anterior": 311218,
+      "contador_atual": 311234,
+      "paginas": 16
+    },
+    {
+      "data": "2026-10-28",
+      "contador_anterior": 311192,
+      "contador_atual": 311218,
+      "paginas": 26
+    },
+    {
+      "data": "2026-10-27",
+      "contador_anterior": 311163,
+      "contador_atual": 311192,
+      "paginas": 29
+    },
+    {
+      "data": "2026-10-26",
+      "contador_anterior": 311154,
+      "contador_atual": 311163,
+      "paginas": 9
+    },
+    {
+      "data": "2026-10-26",
+      "contador_anterior": 311134,
+      "contador_atual": 311154,
+      "paginas": 20
+    },
+    {
+      "data": "2026-10-23",
+      "contador_anterior": 311118,
+      "contador_atual": 311134,
+      "paginas": 16
+    },
+    {
+      "data": "2026-10-22",
+      "contador_anterior": 311046,
+      "contador_atual": 311118,
+      "paginas": 72
+    },
+    {
+      "data": "2026-10-21",
+      "contador_anterior": 310963,
+      "contador_atual": 311046,
+      "paginas": 83
+    },
+    {
+      "data": "2026-10-20",
+      "contador_anterior": 310804,
+      "contador_atual": 310963,
+      "paginas": 159
+    },
+    {
+      "data": "2026-10-19",
+      "contador_anterior": 310773,
+      "contador_atual": 310804,
+      "paginas": 31
+    },
+    {
+      "data": "2026-10-16",
+      "contador_anterior": 310628,
+      "contador_atual": 310773,
+      "paginas": 145
+    },
+    {
+      "data": "2026-10-14",
+      "contador_anterior": 310464,
+      "contador_atual": 310628,
+      "paginas": 164
+    },
+    {
+      "data": "2026-10-08",
+      "contador_anterior": 310427,
+      "contador_atual": 310464,
+      "paginas": 37
+    },
+    {
+      "data": "2026-10-07",
+      "contador_anterior": 310394,
+      "contador_atual": 310427,
+      "paginas": 33
+    },
+    {
+      "data": "2026-10-05",
+      "contador_anterior": 310268,
+      "contador_atual": 310394,
+      "paginas": 126
+    },
+    {
+      "data": "2026-10-01",
+      "contador_anterior": 310214,
+      "contador_atual": 310268,
+      "paginas": 54
+    },
+    {
+      "data": "2026-09-25",
+      "contador_anterior": 310163,
+      "contador_atual": 310214,
+      "paginas": 51
+    },
+    {
+      "data": "2026-09-23",
+      "contador_anterior": 310053,
+      "contador_atual": 310163,
+      "paginas": 110
+    },
+    {
+      "data": "2026-09-21",
+      "contador_anterior": 309965,
+      "contador_atual": 310053,
+      "paginas": 88
+    },
+    {
+      "data": "2026-09-18",
+      "contador_anterior": 309825,
+      "contador_atual": 309965,
+      "paginas": 140
+    },
+    {
+      "data": "2026-09-16",
+      "contador_anterior": 309794,
+      "contador_atual": 309825,
+      "paginas": 31
+    },
+    {
+      "data": "2026-09-15",
+      "contador_anterior": 309508,
+      "contador_atual": 309794,
+      "paginas": 286
+    },
+    {
+      "data": "2026-09-10",
+      "contador_anterior": 309468,
+      "contador_atual": 309508,
+      "paginas": 40
+    },
+    {
+      "data": "2026-09-08",
+      "contador_anterior": 309387,
+      "contador_atual": 309468,
+      "paginas": 81
+    },
+    {
+      "data": "2026-09-04",
+      "contador_anterior": 309330,
+      "contador_atual": 309387,
+      "paginas": 57
+    },
+    {
+      "data": "2026-09-04",
+      "contador_anterior": 309106,
+      "contador_atual": 309330,
+      "paginas": 224
+    },
+    {
+      "data": "2026-08-31",
+      "contador_anterior": 309065,
+      "contador_atual": 309106,
+      "paginas": 41
+    },
+    {
+      "data": "2026-08-27",
+      "contador_anterior": 308951,
+      "contador_atual": 309065,
+      "paginas": 114
+    },
+    {
+      "data": "2026-08-24",
+      "contador_anterior": 308948,
+      "contador_atual": 308951,
+      "paginas": 3
+    },
+    {
+      "data": "2026-08-21",
+      "contador_anterior": 308863,
+      "contador_atual": 308948,
+      "paginas": 85
+    },
+    {
+      "data": "2026-08-17",
+      "contador_anterior": 308768,
+      "contador_atual": 308863,
+      "paginas": 95
+    },
+    {
+      "data": "2026-08-13",
+      "contador_anterior": 308745,
+      "contador_atual": 308768,
+      "paginas": 23
+    },
+    {
+      "data": "2026-08-12",
+      "contador_anterior": 308577,
+      "contador_atual": 308745,
+      "paginas": 168
+    },
+    {
+      "data": "2026-08-10",
+      "contador_anterior": 308444,
+      "contador_atual": 308577,
+      "paginas": 133
+    },
+    {
+      "data": "2026-08-04",
+      "contador_anterior": 308310,
+      "contador_atual": 308444,
+      "paginas": 134
+    },
+    {
+      "data": "2026-07-31",
+      "contador_anterior": 308234,
+      "contador_atual": 308310,
+      "paginas": 76
+    },
+    {
+      "data": "2026-07-29",
+      "contador_anterior": 308212,
+      "contador_atual": 308234,
+      "paginas": 22
+    },
+    {
+      "data": "2026-07-24",
+      "contador_anterior": 308134,
+      "contador_atual": 308212,
+      "paginas": 78
+    },
+    {
+      "data": "2026-07-21",
+      "contador_anterior": 308097,
+      "contador_atual": 308134,
+      "paginas": 37
+    },
+    {
+      "data": "2026-07-17",
+      "contador_anterior": 308086,
+      "contador_atual": 308097,
+      "paginas": 11
+    },
+    {
+      "data": "2026-07-17",
+      "contador_anterior": 307939,
+      "contador_atual": 308086,
+      "paginas": 147
+    },
+    {
+      "data": "2026-07-16",
+      "contador_anterior": 307920,
+      "contador_atual": 307939,
+      "paginas": 19
+    },
+    {
+      "data": "2026-07-15",
+      "contador_anterior": 307682,
+      "contador_atual": 307920,
+      "paginas": 238
+    },
+    {
+      "data": "2026-07-13",
+      "contador_anterior": 307564,
+      "contador_atual": 307682,
+      "paginas": 118
+    },
+    {
+      "data": "2026-07-13",
+      "contador_anterior": 307264,
+      "contador_atual": 307564,
+      "paginas": 300
+    },
+    {
+      "data": "2026-07-10",
+      "contador_anterior": 307141,
+      "contador_atual": 307264,
+      "paginas": 123
+    },
+    {
+      "data": "2026-07-07",
+      "contador_anterior": 307129,
+      "contador_atual": 307141,
+      "paginas": 12
+    },
+    {
+      "data": "2026-07-03",
+      "contador_anterior": 306896,
+      "contador_atual": 307129,
+      "paginas": 233
+    },
+    {
+      "data": "2026-07-01",
+      "contador_anterior": 306883,
+      "contador_atual": 306896,
+      "paginas": 13
+    },
+    {
+      "data": "2026-06-30",
+      "contador_anterior": 306866,
+      "contador_atual": 306883,
+      "paginas": 17
+    },
+    {
+      "data": "2026-06-29",
+      "contador_anterior": 306829,
+      "contador_atual": 306866,
+      "paginas": 37
+    },
+    {
+      "data": "2026-06-26",
+      "contador_anterior": 306802,
+      "contador_atual": 306829,
+      "paginas": 27
+    }
+  ]
+}

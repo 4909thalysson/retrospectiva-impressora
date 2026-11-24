@@ -46,3 +46,31 @@ A aba `PAINEL` não é necessária para os cálculos: os indicadores são recalc
 Na navegação principal, abra **Gerar QR Code**, cole o link público do vídeo hospedado no Zoho WorkDrive e selecione **Gerar QR Code**. É possível baixar o QR Code em PNG, copiar o link ou testar o endereço.
 
 O QR Code codifica exatamente o link informado. Para que o vídeo abra sem autenticação e sem a interface da Central, configure no WorkDrive um link externo com acesso adequado e teste o endereço em uma janela anônima. A reprodução direta depende do tipo de link fornecido pelo Zoho; links de compartilhamento que abrem uma página do WorkDrive continuarão abrindo essa página.
+
+
+## Página pública de acesso à retrospectiva
+
+- `acesso.html`, `retrospectiva.css` e `retrospectiva.js`: página pública em que o colaborador busca o nome com sugestões em tempo real; ao escolher um resultado, o setor correspondente é preenchido automaticamente.
+- `colaboradores.json`: lista de colaboradores e permissões (`impressoras` e `demandas-ti`).
+- `config-publico.js`: configuração do endereço público e de links externos opcionais.
+- `index.html` / `central.js`: gerador de QR Code atualizado para apontar para `acesso.html`.
+
+Após a identificação, a página incorpora as apresentações interativas de `pipefy/` e `impressoras/`. A apresentação do Pipefy relaciona os nomes de `colaboradores.json` às variações registradas em `chamados.json` por meio do mapeamento em `pipefy/setores.js`. Se ainda não houver dados para um setor, a página informa isso em vez de mostrar a retrospectiva de outro setor. A apresentação de Impressoras inicia automaticamente e seleciona uma impressora com o mesmo nome do setor, quando disponível.
+
+### Links externos opcionais
+
+Se quiser disponibilizar também uma cópia hospedada no WorkDrive, preencha os campos `url` de `impressoras` e `demandas-ti` em `config-publico.js`. O modo `link` abre o compartilhamento em outra aba; para uma URL direta de MP4, use `modo: "video"` para mostrar um player adicional.
+
+### Configurar o QR Code
+
+Por padrão, o gerador calcula automaticamente a URL de `acesso.html` a partir do endereço em que a Central foi aberta. Se a hospedagem usar um caminho público específico, informe a URL completa em `GI_PUBLIC_ACCESS_URL`, no arquivo `config-publico.js`.
+
+Depois de publicar a pasta, abra a Central no endereço público, entre em **Gerar QR Code** e gere o QR Code. O QR Code agora aponta para a página de identificação dos colaboradores, não para o endereço de um vídeo.
+
+### Limitação do acesso sem backend
+
+A validação é feita no navegador e os dados de `colaboradores.json` são baixados pelo visitante. Portanto, esse método organiza a experiência e controla o que a interface apresenta, mas não oferece autenticação forte nem impede que alguém consulte o JSON ou compartilhe um link público direto do WorkDrive. Não use esse mecanismo para vídeos que precisem de sigilo ou controle de acesso rigoroso.
+
+### Agendamento da divulgação
+
+Na Visão geral da Central, use **Agendar divulgação** para definir data e hora. A página `acesso.html` mostra a contagem regressiva e só carrega a busca quando o prazo termina. O agendamento é salvo em `localStorage` (`gi_retrospective_release_at`), portanto vale somente no mesmo navegador e dispositivo em que foi definido; ele não é compartilhado com os celulares dos visitantes. Para uma liberação sincronizada entre dispositivos, será necessário conectar um backend ou publicar a configuração em um arquivo compartilhado.

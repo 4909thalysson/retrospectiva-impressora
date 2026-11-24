@@ -26,4 +26,13 @@
 .qr-result-actions{margin-top:8px}
 .qr-open{box-sizing:border-box}
 .qr-note{max-width:850px;color:#8290a3;font-size:11px;line-height:1.6;margin-top:18px}
+.release-admin{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.8fr);gap:30px;margin:18px 0;padding:25px 28px;border:1px solid #303b49;border-radius:16px;background:linear-gradient(145deg,#17202b,#10151e)}
+.release-admin h2{font-size:23px;margin:7px 0}
+.release-admin p{color:#a5b0bf;line-height:1.55;font-size:13px;margin:6px 0}
+.release-admin-form label{display:block;font-weight:700;font-size:12px;margin:0 0 9px}
+.release-admin-form input{display:block;width:100%;min-height:44px;padding:11px 13px;border:1px solid #3a4656;border-radius:9px;background:#0b111a;color:#f3f5f8;font:13px "DM Sans",sans-serif}
+.release-admin-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+.release-admin-status{min-height:18px;font-size:11px!important}
+.release-admin-status.error{color:#ff9b9b!important}.release-admin-status.success{color:#c8ff3d!important}
 @media(max-width:650px){.qr-view{padding:40px 18px}.qr-result{flex-direction:column;align-items:flex-start}.qr-result-copy{width:100%}.qr-result-actions>*{width:100%}}
+@media(max-width:800px){.release-admin{grid-template-columns:1fr;gap:15px}.release-admin-actions>*{flex:1}}

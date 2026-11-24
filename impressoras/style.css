@@ -36,6 +36,8 @@ body {
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
+body.stories-only { padding: 0; overflow: hidden; background: #08060e; }
+body.stories-only .page { display: none; }
 .page { max-width: 1080px; margin: 0 auto; display: grid; gap: 28px; }
 .mono { font-family: var(--mono); }
 .muted { color: var(--muted); font-weight: 400; font-size: .75rem; }
@@ -64,7 +66,7 @@ h1 { margin: 4px 0 0; font-size: clamp(2.2rem, 7vw, 3.6rem); line-height: .95; l
 }
 .printer:hover { border-color: var(--ac); }
 .printer[aria-pressed="true"] { border-color: var(--ac); box-shadow: 0 0 0 2px var(--ac); }
-.printer:focus-visible, .btn:focus-visible, input:focus-visible, .close:focus-visible { outline: 3px solid var(--ac); outline-offset: 2px; }
+.printer:focus-visible, .btn:focus-visible, input:focus-visible { outline: 3px solid var(--ac); outline-offset: 2px; }
 .printer .n { font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; }
 .printer .s { font-family: var(--mono); font-size: .75rem; color: var(--muted); }
 .printer .p { font-size: 1.6rem; font-weight: 800; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
@@ -150,9 +152,6 @@ h1 { margin: 4px 0 0; font-size: clamp(2.2rem, 7vw, 3.6rem); line-height: .95; l
   --ac: var(--s-ac, #c6ff3d); --soft: var(--s-soft, rgba(244,239,255,.16)); --fg: var(--s-fg, #f4efff);
 }
 @media (min-width: 600px) { .stage { border-radius: 22px; } }
-.close { position: absolute; z-index: 60; top: calc(14px + env(safe-area-inset-top, 0px)); right: max(14px, env(safe-area-inset-right, 0px)); font: 500 .75rem var(--mono); color: #fff; background: rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.3); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
-@media (min-width: 600px) { .close { top: 18px; right: 18px; } }
-
 .t-violet { --s-bg: #2a1670; --s-fg: #f4efff; --s-ac: #c6ff3d; --s-soft: rgba(244,239,255,.16); }
 .t-lime   { --s-bg: #c6ff3d; --s-fg: #14210a; --s-ac: #14210a; --s-soft: rgba(20,33,10,.16); }
 .t-pink   { --s-bg: #ff4f9a; --s-fg: #2b0618; --s-ac: #fff3a8; --s-soft: rgba(43,6,24,.18); }

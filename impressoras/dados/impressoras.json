@@ -10,14 +10,35 @@
   "id": "impressora-02",
   "nome": "CQB",
   "local": "CQB",
-  "arquivo": "dados/impressora-02.json",
+  "arquivo": "pdf/impressora-02-cqb.pdf",
   "pdf": null
  },
  {
   "id": "impressora-03",
   "nome": "Almoxarifado",
   "local": "Almoxarifado",
-  "arquivo": "dados/impressora-03.json",
+  "arquivo": "pdf/Páginas Impressas · Almoxarifado.pdf",
   "pdf": null
- }
+ },
+  {
+  "id": "impressora-04",
+  "nome": "Contabilidade",
+  "local": "Contabilidade",
+  "arquivo": "dados/impressora-04.json",
+  "pdf": "pdf/Páginas Impressas · Impressora fiscal.pdf"
+ },
+    {
+    "id": "impressora-05",
+    "nome": "Produção/Armazém",
+    "local": "Produção/Armazém",
+    "arquivo": "dados/impressora-05.json",
+    "pdf": "pdf/Páginas Impressas · Prod Armazem.pdf"
+},
+    {
+    "id": "impressora-06",
+    "nome": "Produção/Campo",
+    "local": "Produção/Campo",
+    "arquivo": "dados/impressora-06.json",
+    "pdf": "pdf/Páginas Impressas · produção campo.pdf"
+}
 ]

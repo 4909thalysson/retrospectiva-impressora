@@ -20,6 +20,42 @@
   function n(v) { return nf.format(Math.round(Number(v) || 0)); }
   function pct(v, total) { return total ? Math.round(v / total * 100) : 0; }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function normalizeSector(s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').trim().toLocaleLowerCase('pt-BR'); }
+  var SECTOR_VARIANTS = {
+    'Almoxarifado': ['Almoxarifado'],
+    'BackOffice': ['Backoffice'],
+    'Balança': ['Balança'],
+    'Comercial': ['Comercial'],
+    'Compras': ['Compras'],
+    'Contabilidade': ['Fiscal Contábil'],
+    'Direção': ['Direção'],
+    'Elétrica / Manutenção': ['Elétrica'],
+    'Faturamento': ['Faturamento'],
+    'FAZ G - Gestão': ['Fazendas Gestão'],
+    'Financeiro': ['Financeiro | Gestão'],
+    'Gestão da Informação': ['GI | TI'],
+    'Marketing': ['Marketing'],
+    'Planejamento & Controladoria': ['Planej e Controle'],
+    'Produção Campo': ['Produção Campo'],
+    'Recepção': ['Recepção'],
+    'Recursos Humanos': ['RH'],
+    'Refeitório': ['Refeitório'],
+    'Segurança do Trabalho': ['Seg Trabalho'],
+    'Transportadora': ['Transportadora'],
+    'Fazenda - 3 Irmãos': ['Fazenda 3 irmãos'],
+    'Fazenda - Lagoa': ['Fazenda – Lagoa']
+  };
+  function canonicalSector(name) {
+    var normalizedName=normalizeSector(name);
+    return Object.keys(SECTOR_VARIANTS).find(function(canonical){
+      return [canonical].concat(SECTOR_VARIANTS[canonical]).some(function(variant){
+        return normalizeSector(variant)===normalizedName;
+      });
+    })||String(name||'').trim();
+  }
+  function sectorNames(name) {
+    return [name].concat(SECTOR_VARIANTS[name]||[]).map(normalizeSector);
+  }
   function dateOf(s) { var d = s ? new Date(s) : null; return d && !isNaN(d) ? d : null; }
   function shortDate(d) { return d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear(); }
   function longDate(d) { return d.getDate() + ' de ' + MONTHS_LONG[d.getMonth()] + ' de ' + d.getFullYear(); }
@@ -267,19 +303,27 @@
 
   function openSector(name){
     currentSector=name;
-    var items=records.filter(function(r){return String(r.setor||'').trim()===name;});
+    var acceptedNames=sectorNames(name);
+    var items=records.filter(function(r){return acceptedNames.indexOf(normalizeSector(r.setor))!==-1;});
+    if(!items.length)return false;
     currentData=summarize(items,name);slides=buildSlides(currentData);cur=-1;paused=REDUCED;remaining=SLIDE_MS;finalBound=false;
     selector.hidden=true;presentation.hidden=false;document.body.classList.add('showing-slides');
     document.getElementById('brandLabel').textContent=name.length>18?name.slice(0,17)+'…':name;
     stage.innerHTML=slides.map(function(s,i){return '<article class="slide '+s.theme+(s.final?' final':'')+'" data-i="'+i+'" aria-hidden="true">'+s.html()+'</article>';}).join('');
     progress.innerHTML=slides.map(function(){return '<span class="seg"><i></i></span>';}).join('');
     frame.classList.toggle('paused',paused);go(0);
+    return true;
   }
   function returnToSelector(){
     clearTimeout(timer);presentation.hidden=true;selector.hidden=false;document.body.classList.remove('showing-slides');cur=-1;
   }
   function renderSectorCards(query){
-    var list=records.reduce(function(acc,r){var name=String(r.setor||'').trim();if(name&&name!=='GI | TI'){acc[name]=(acc[name]||0)+1;}return acc;},{});
+    var list=records.reduce(function(acc,r){
+      var sourceName=String(r.setor||'').trim();
+      var name=canonicalSector(sourceName);
+      if(name&&name!=='Gestão da Informação'){acc[name]=(acc[name]||0)+1;}
+      return acc;
+    },{});
     var sectors=Object.keys(list).map(function(name){return {name:name,total:list[name]};}).sort(function(a,b){return b.total-a.total||a.name.localeCompare(b.name,'pt-BR');});
     var filtered=sectors.filter(function(s){return s.name.toLocaleLowerCase('pt-BR').includes(query.toLocaleLowerCase('pt-BR'));});
     document.getElementById('sectorCount').textContent=sectors.length+' setores disponíveis';
@@ -321,6 +365,18 @@
     var dates=records.map(function(r){return dateOf(r.criadoEm);}).filter(Boolean).sort(function(a,b){return a-b;});
     document.getElementById('periodLabel').textContent=dates.length?'Período dos registros: '+shortDate(dates[0])+' → '+shortDate(dates[dates.length-1]):'Período não identificado';
     renderSectorCards('');
+    var requestedSector = new URLSearchParams(window.location.search).get('setor');
+    if (requestedSector) {
+      var requestedCanonicalSector=canonicalSector(requestedSector);
+      if(!openSector(requestedCanonicalSector)){
+        var emptyState=document.createElement('div');
+        emptyState.className='empty-state';
+        emptyState.textContent='Ainda não há chamados disponíveis para o setor '+requestedCanonicalSector+'.';
+        document.getElementById('sectorGrid').textContent='';
+        document.getElementById('sectorGrid').appendChild(emptyState);
+        document.getElementById('sectorCount').textContent='Dados indisponíveis para este setor';
+      }
+    }
   }).catch(function(error){
     document.getElementById('sectorGrid').innerHTML='<div class="empty-state">Não foi possível carregar os dados. Execute a aplicação por um servidor local e confirme se <strong>chamados.json</strong> está na mesma pasta de setores.html.<br><small>'+esc(error.message)+'</small></div>';
     document.getElementById('sectorCount').textContent='Dados indisponíveis';

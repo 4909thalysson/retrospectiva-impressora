@@ -78,7 +78,7 @@ document.getElementById('xlsxFile').addEventListener('change',function(e){
  reader.readAsArrayBuffer(file);
 });
 
-// Gerador local de QR Code para links públicos de vídeos.
+// Gerador de QR Code para a página pública de identificação dos colaboradores.
 var qrInput=document.getElementById('videoUrl');
 var qrButton=document.getElementById('generateQr');
 var qrClear=document.getElementById('clearQr');
@@ -86,36 +86,97 @@ var qrStatus=document.getElementById('qrStatus');
 var qrResult=document.getElementById('qrResult');
 var qrCanvas=document.getElementById('qrCanvas');
 var qrInstance=null;
+var releaseStorageKey='gi_retrospective_release_at';
+var releaseForm=document.getElementById('releaseForm');
+var releaseDateInput=document.getElementById('releaseDate');
+var releaseAdminStatus=document.getElementById('releaseAdminStatus');
+
+function showReleaseAdminStatus(message,type){
+  releaseAdminStatus.textContent=message;
+  releaseAdminStatus.className='release-admin-status'+(type?' '+type:'');
+}
+function loadReleaseDate(){
+  try{
+    var timestamp=Number(localStorage.getItem(releaseStorageKey));
+    if(!timestamp||!isFinite(timestamp))return;
+    var date=new Date(timestamp);
+    releaseDateInput.value=date.getFullYear()+'-'+String(date.getMonth()+1).padStart(2,'0')+'-'+String(date.getDate()).padStart(2,'0')+'T'+String(date.getHours()).padStart(2,'0')+':'+String(date.getMinutes()).padStart(2,'0');
+    showReleaseAdminStatus('Agendamento atual: '+date.toLocaleString('pt-BR')+'.','success');
+  }catch(error){
+    showReleaseAdminStatus('Não foi possível ler o agendamento salvo neste navegador.','error');
+  }
+}
+releaseForm.addEventListener('submit',function(event){
+  event.preventDefault();
+  var timestamp=new Date(releaseDateInput.value).getTime();
+  if(!releaseDateInput.value||!isFinite(timestamp)){
+    showReleaseAdminStatus('Informe uma data e hora válidas.','error');
+    return;
+  }
+  try{
+    localStorage.setItem(releaseStorageKey,String(timestamp));
+    showReleaseAdminStatus('Divulgação agendada para '+new Date(timestamp).toLocaleString('pt-BR')+'.','success');
+  }catch(error){
+    showReleaseAdminStatus('Não foi possível salvar o agendamento neste navegador. Verifique as configurações de armazenamento.','error');
+  }
+});
+document.getElementById('clearRelease').addEventListener('click',function(){
+  try{
+    localStorage.removeItem(releaseStorageKey);
+    releaseDateInput.value='';
+    showReleaseAdminStatus('Agendamento removido. A busca pública ficará bloqueada até definir uma nova data.','success');
+  }catch(error){
+    showReleaseAdminStatus('Não foi possível remover o agendamento salvo neste navegador.','error');
+  }
+});
+loadReleaseDate();
+
 function setQrStatus(message,type){
   qrStatus.textContent=message;
   qrStatus.className='qr-status'+(type?' '+type:'');
 }
-function validHttpUrl(value){
+function getPublicAccessUrl(){
+  var configured=String(window.GI_PUBLIC_ACCESS_URL||'').trim();
+  if(configured){
+    try{
+      var parsed=new URL(configured);
+      if(parsed.protocol==='https:'||parsed.protocol==='http:')return parsed.href;
+    }catch(_){}
+    throw new Error('GI_PUBLIC_ACCESS_URL não contém uma URL válida.');
+  }
+  return new URL('acesso.html',window.location.href).href;
+}
+function refreshPublicAccessUrl(){
   try{
-    var parsed=new URL(value);
-    return parsed.protocol==='https:'||parsed.protocol==='http:';
-  }catch(_){return false;}
+    qrInput.value=getPublicAccessUrl();
+    setQrStatus('Link público preparado. Gere o QR Code para compartilhar.','success');
+  }catch(error){
+    qrInput.value='';
+    setQrStatus(error.message,'error');
+  }
 }
 function generateVideoQr(){
   var value=qrInput.value.trim();
-  if(!value){setQrStatus('Cole o link público do vídeo para continuar.','error');qrInput.focus();return;}
-  if(!validHttpUrl(value)){setQrStatus('Informe um endereço válido iniciado por https:// ou http://.','error');qrInput.focus();return;}
+  if(!value){refreshPublicAccessUrl();value=qrInput.value.trim();}
+  if(!value){setQrStatus('Não foi possível determinar o endereço público da página.','error');return;}
   if(!window.QRCode){setQrStatus('A biblioteca de QR Code não carregou. Verifique a conexão e atualize a página.','error');return;}
   qrCanvas.innerHTML='';
   qrResult.hidden=false;
   try{
     qrInstance=new QRCode(qrCanvas,{text:value,width:440,height:440,colorDark:'#000000',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
     document.getElementById('openVideo').href=value;
-    setQrStatus('QR Code gerado. Teste o link antes de compartilhar.','success');
+    setQrStatus('QR Code da página pública gerado. Teste o endereço antes de imprimir.','success');
   }catch(error){
     qrResult.hidden=true;
     setQrStatus('Não foi possível gerar o QR Code: '+error.message,'error');
   }
 }
 qrButton.addEventListener('click',generateVideoQr);
-qrInput.addEventListener('keydown',function(event){if(event.key==='Enter')generateVideoQr();});
 qrClear.addEventListener('click',function(){
-  qrInput.value='';qrCanvas.innerHTML='';qrResult.hidden=true;qrInstance=null;setQrStatus('Campo limpo. Cole outro link quando quiser.');
+  qrCanvas.innerHTML='';
+  qrResult.hidden=true;
+  qrInstance=null;
+  refreshPublicAccessUrl();
 });
 document.getElementById('downloadQr').addEventListener('click',function(){
   var image=qrCanvas.querySelector('img');
@@ -123,17 +184,18 @@ document.getElementById('downloadQr').addEventListener('click',function(){
   var source=image?image.src:(canvas?canvas.toDataURL('image/png'):null);
   if(!source){setQrStatus('Gere o QR Code antes de baixar.','error');return;}
   var link=document.createElement('a');
-  link.href=source;link.download='qr-code-retrospectiva.png';
+  link.href=source;link.download='qr-code-acesso-retrospectiva.png';
   document.body.appendChild(link);link.click();link.remove();
 });
 document.getElementById('copyVideoUrl').addEventListener('click',function(){
   var value=qrInput.value.trim();
   if(navigator.clipboard&&window.isSecureContext){
-    navigator.clipboard.writeText(value).then(function(){setQrStatus('Link copiado.','success');}).catch(function(){setQrStatus('Não foi possível copiar automaticamente. Copie o link do campo.','error');});
+    navigator.clipboard.writeText(value).then(function(){setQrStatus('Link público copiado.','success');}).catch(function(){setQrStatus('Não foi possível copiar automaticamente. Copie o link do campo.','error');});
   }else{
     qrInput.focus();qrInput.select();
-    try{document.execCommand('copy');setQrStatus('Link copiado.','success');}catch(_){setQrStatus('Copie o link diretamente do campo.','error');}
+    try{document.execCommand('copy');setQrStatus('Link público copiado.','success');}catch(_){setQrStatus('Copie o link diretamente do campo.','error');}
   }
 });
+refreshPublicAccessUrl();
 
 })();
