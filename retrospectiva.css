@@ -26,6 +26,12 @@ form input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #4de1ff20}
 .primary-button{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:48px;margin-top:22px;padding:12px 16px;border:1px solid var(--lime);border-radius:10px;background:var(--lime);color:#12170b;font:700 13px "DM Sans",sans-serif;cursor:pointer}.primary-button:disabled{opacity:.5;cursor:not-allowed}
 .form-status{min-height:18px;margin:12px 0 0;color:#ffaaaa;font-size:12px}.privacy-note{margin:18px 0 0;color:#8290a3;font-size:11px;line-height:1.6}
 .result-section{margin-top:46px}.welcome-row{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:25px 0 30px;border-bottom:1px solid #252d3a}.welcome-row h2{font:800 clamp(30px,4vw,42px) "Bricolage Grotesque","DM Sans",sans-serif;margin:8px 0}.welcome-sector{color:#aab6c5;margin:0}.text-button{border:1px solid #394657;background:#1a2430;color:#e7edf5;border-radius:9px;padding:10px 13px;font:600 11px "DM Sans",sans-serif;cursor:pointer}
+.personal-message{max-width:780px;margin:28px 0;padding:clamp(22px,4vw,34px);border:1px solid #35443a;border-radius:16px;background:linear-gradient(145deg,#17221f,#111821);color:#c3cdd5;font-size:14px;line-height:1.75}
+.personal-message h3{margin:12px 0 20px;color:var(--text);font:700 clamp(20px,3vw,26px)/1.35 "Bricolage Grotesque","DM Sans",sans-serif}
+.personal-message p{margin:0 0 14px}
+.personal-message .personal-message-highlight{margin-top:22px;color:var(--lime);font-size:16px}
+.personal-message .personal-message-signoff{margin:24px 0 0;color:#aab6c5}
+.personal-message-signoff strong{display:inline-block;margin-top:8px;color:var(--text)}
 .content-heading{margin:30px 0 20px}.video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .video-card{display:flex;flex-direction:column;min-height:220px;padding:23px;border:1px solid #303b49;border-radius:16px;background:linear-gradient(145deg,#17202b,#10151e)}
 .video-card-icon{display:grid;place-items:center;width:44px;height:44px;border-radius:13px;background:#263342;color:var(--lime);font-size:20px;margin-bottom:18px}

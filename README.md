@@ -48,7 +48,7 @@ A aba `PAINEL` não é necessária para os cálculos: os indicadores são recalc
 - `config-publico.js`: configuração do endereço público e de links externos opcionais.
 - `index.html` / `central.js`: gerador de QR Code geral e de QR Codes individuais, que abrem o acesso com o código do colaborador preenchido.
 
-Após a identificação, a página incorpora as apresentações interativas de `pipefy/` e `impressoras/`. A apresentação do Pipefy relaciona os nomes de `colaboradores.json` às variações registradas em `chamados.json` por meio do mapeamento em `pipefy/setores.js`. Se ainda não houver dados para um setor, a página informa isso em vez de mostrar a retrospectiva de outro setor. A apresentação de Impressoras inicia automaticamente e seleciona uma impressora com o mesmo nome do setor, quando disponível.
+Após a identificação, a página incorpora as apresentações interativas de `pipefy/` e `impressoras/`. Jason Leonel Lima De Souza e Rafael Lima Pacheco também recebem uma mensagem de abertura personalizada antes das apresentações. A apresentação do Pipefy relaciona os nomes de `colaboradores.json` às variações registradas em `chamados.json` por meio do mapeamento em `pipefy/setores.js`. Se ainda não houver dados para um setor, a página informa isso em vez de mostrar a retrospectiva de outro setor. A apresentação de Impressoras inicia automaticamente e seleciona uma impressora com o mesmo nome do setor, quando disponível.
 
 ### Links externos opcionais
 

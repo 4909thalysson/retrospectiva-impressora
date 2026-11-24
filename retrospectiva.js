@@ -10,6 +10,7 @@
   var resultSection = document.getElementById("resultSection");
   var videoGrid = document.getElementById("videoGrid");
   var emptyAccess = document.getElementById("emptyAccess");
+  var personalMessage = document.getElementById("personalMessage");
   var releasePanel = document.getElementById("releasePanel");
   var releaseTitle = document.getElementById("releaseTitle");
   var releaseMessage = document.getElementById("releaseMessage");
@@ -238,9 +239,11 @@
   function showRetrospective(person) {
     var permissions = Array.isArray(person.retrospectivas) ? person.retrospectivas : [];
     var videoConfig = window.GI_RETROSPECTIVAS_VIDEOS || {};
+    var personalMessageRecipients = ["jason leonel lima de souza", "rafael lima pacheco"];
 
     document.getElementById("welcomeTitle").textContent = "Olá, " + person.nome + "!";
     document.getElementById("welcomeSector").textContent = "Setor: " + person.setor;
+    personalMessage.hidden = personalMessageRecipients.indexOf(normalize(person.nome)) === -1;
     videoGrid.innerHTML = "";
 
     var allowed = permissions.filter(function (key) {
@@ -286,6 +289,7 @@
   document.getElementById("changeUser").addEventListener("click", function () {
     resultSection.hidden = true;
     accessPanel.hidden = false;
+    personalMessage.hidden = true;
     videoGrid.innerHTML = "";
     codeInputs.forEach(function (input) {
       input.value = "";
