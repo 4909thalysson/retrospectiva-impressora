@@ -20,7 +20,7 @@
  *    um player adicional para uma URL direta de arquivo MP4.
  */
 window.GI_PUBLIC_ACCESS_URL = "";
-window.GI_RETROSPECTIVE_RELEASE_AT = "2026-12-07T08:30:00-03:00";
+window.GI_RETROSPECTIVE_RELEASE_AT = "2026-12-11T08:30:00-03:00";
 
 window.GI_RETROSPECTIVAS_VIDEOS = {
   "impressoras": {
