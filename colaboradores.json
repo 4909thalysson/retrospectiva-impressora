@@ -639,6 +639,16 @@
 
       ],
       "codigo": "26-800"
+    },
+    {
+      "nome": "Leonardo Zborowski Filho",
+      "setor": "Produção Armazém",
+      "retrospectivas": [
+        "impressoras",
+        "demandas-ti"
+      ],
+      "codigo": "26-680"
+
     }
-  ]
-}
+  ] }
+
