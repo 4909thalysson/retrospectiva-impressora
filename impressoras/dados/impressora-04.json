@@ -5,7 +5,9 @@
       "data": "2026-11-23",
       "contador_anterior": 311613,
       "contador_atual": 311696,
-      "paginas": 83
+      "paginas": 83,
+      "troca_toner": true
+
     },
     {
       "data": "2026-11-16",
@@ -287,7 +289,9 @@
       "data": "2026-07-16",
       "contador_anterior": 307920,
       "contador_atual": 307939,
-      "paginas": 19
+      "paginas": 19,
+      "troca_toner": true
+
     },
     {
       "data": "2026-07-15",
