@@ -22,7 +22,6 @@
       "nome": "Jully Medeiros",
       "setor": "BackOffice",
       "retrospectivas": [
-        "impressoras",
         "demandas-ti"
       ],
       "codigo": "26-131"
@@ -31,7 +30,6 @@
       "nome": "Renan Albrecht Cortes",
       "setor": "BackOffice",
       "retrospectivas": [
-        "impressoras",
         "demandas-ti"
       ],
       "codigo": "26-902"
@@ -40,7 +38,6 @@
       "nome": "Ricardo Rios Oliveira",
       "setor": "BackOffice",
       "retrospectivas": [
-        "impressoras",
         "demandas-ti"
       ],
       "codigo": "26-669"
@@ -49,7 +46,6 @@
       "nome": "Liliane Sirilia Pereira dos Santos",
       "setor": "BackOffice",
       "retrospectivas": [
-        "impressoras",
         "demandas-ti"
       ],
       "codigo": "26-908"
@@ -58,7 +54,6 @@
       "nome": "Rovian Melo Freire Bach",
       "setor": "Balança",
       "retrospectivas": [
-        "impressoras",
         "demandas-ti"
       ],
       "codigo": "26-447"
@@ -97,9 +92,8 @@
     },
     {
       "nome": "Lyssa Morais Budel",
-      "setor": "Contabilidade",
+      "setor": "Planejamento & Controladoria",
       "retrospectivas": [
-        "impressoras",
         "demandas-ti"
       ],
       "codigo": "26-545"
@@ -174,7 +168,7 @@
     },
     {
       "nome": "Jerry Martins Ferreira",
-      "setor": "Expedição",
+      "setor": "Balança",
       "retrospectivas": [
         "demandas-ti"
       ],
@@ -256,7 +250,6 @@
       "nome": "Bruna Lauer Schwarzer Lopes",
       "setor": "Financeiro",
       "retrospectivas": [
-        "impressoras",
         "demandas-ti"
       ],
       "codigo": "26-434"
@@ -281,7 +274,6 @@
       "nome": "Ana Carolina Mughiuti Bender",
       "setor": "Financeiro",
       "retrospectivas": [
-        "impressoras",
         "demandas-ti"
       ],
       "codigo": "26-464"
@@ -290,7 +282,6 @@
       "nome": "Thaís Galli Soares",
       "setor": "Financeiro",
       "retrospectivas": [
-        "impressoras",
         "demandas-ti"
       ],
       "codigo": "26-977"
@@ -299,7 +290,6 @@
       "nome": "Brenda Vitória kulmann da Silva",
       "setor": "Financeiro",
       "retrospectivas": [
-        "impressoras",
         "demandas-ti"
       ],
       "codigo": "26-943"
@@ -644,8 +634,7 @@
       "nome": "Leonardo Zborowski Filho",
       "setor": "Produção Armazém",
       "retrospectivas": [
-        "impressoras",
-        "demandas-ti"
+        "impressoras"
       ],
       "codigo": "26-680"
 

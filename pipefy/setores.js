@@ -315,9 +315,6 @@
     frame.classList.toggle('paused',paused);go(0);
     return true;
   }
-  function returnToSelector(){
-    clearTimeout(timer);presentation.hidden=true;selector.hidden=false;document.body.classList.remove('showing-slides');cur=-1;
-  }
   function renderSectorCards(query){
     var list=records.reduce(function(acc,r){
       var sourceName=String(r.setor||'').trim();
@@ -335,7 +332,6 @@
   }
 
   document.getElementById('sectorSearch').addEventListener('input',function(){renderSectorCards(this.value);});
-  document.getElementById('btnBack').addEventListener('click',returnToSelector);
   document.getElementById('zoneNext').addEventListener('click',function(){go(cur+1);});
   document.getElementById('zonePrev').addEventListener('click',function(){go(cur-1);});
   document.getElementById('btnPause').addEventListener('click',function(){setPaused(!paused);});
@@ -348,7 +344,6 @@
     else if(e.key==='Home')go(0);
     else if(e.key==='End')go(slides.length-1);
     else if(e.key.toLowerCase()==='p')setPaused(!paused);
-    else if(e.key==='Escape')returnToSelector();
   });
   var holdT,sx=0,held=false;
   frame.addEventListener('pointerdown',function(e){sx=e.clientX;held=false;if(e.target.closest('button:not(.zone)'))return;holdT=setTimeout(function(){held=true;if(!paused){frame.dataset.hold='1';setPaused(true);}},260);});
