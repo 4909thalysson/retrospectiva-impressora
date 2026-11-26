@@ -11,6 +11,7 @@
   var videoGrid = document.getElementById("videoGrid");
   var emptyAccess = document.getElementById("emptyAccess");
   var personalMessage = document.getElementById("personalMessage");
+  var surpriseDialog = document.getElementById("surpriseDialog");
   var releasePanel = document.getElementById("releasePanel");
   var releaseTitle = document.getElementById("releaseTitle");
   var releaseMessage = document.getElementById("releaseMessage");
@@ -290,6 +291,7 @@
     resultSection.hidden = true;
     accessPanel.hidden = false;
     personalMessage.hidden = true;
+    surpriseDialog.close();
     videoGrid.innerHTML = "";
     codeInputs.forEach(function (input) {
       input.value = "";
@@ -297,5 +299,17 @@
     setStatus("");
     window.scrollTo({ top: 0, behavior: "smooth" });
     codeInputs[0].focus();
+  });
+
+  document.getElementById("openSurprise").addEventListener("click", function () {
+    surpriseDialog.showModal();
+  });
+
+  document.getElementById("closeSurprise").addEventListener("click", function () {
+    surpriseDialog.close();
+  });
+
+  document.getElementById("printSurprise").addEventListener("click", function () {
+    window.print();
   });
 })();

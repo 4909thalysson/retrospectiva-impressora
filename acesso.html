@@ -81,14 +81,35 @@
       <article class="personal-message" id="personalMessage" aria-labelledby="personalMessageTitle" hidden>
         <p class="eyebrow">UMA MENSAGEM PARA VOCÊS</p>
         <h3 id="personalMessageTitle">Antes de encerrar esta retrospectiva, gostaria de deixar algumas palavras.</h3>
-        <p>Este projeto nasceu da vontade de olhar para trás e reconhecer um pouco do trabalho que acontece todos os dias, muitas vezes longe dos holofotes.</p>
-        <p>Por trás de cada atendimento, chamado, manutenção, ajuste ou melhoria, existem pessoas, dedicação e desafios que nem sempre aparecem.</p>
+        <p>Este projeto nasceu da vontade de olhar para trás e reconhecer um pouco do trabalho que acontece todos os dias, além de valorizar as experiências que fazem parte da nossa rotina.</p>
+        <p>Por trás de cada atendimento, chamado, manutenção, ajuste ou melhoria, existem pessoas, dedicação e desafios que fazem parte dessa jornada.</p>
         <p>A ideia desta retrospectiva não é apenas apresentar números ou resultados, mas valorizar o caminho percorrido, as dificuldades superadas e tudo aquilo que construímos juntos.</p>
         <p>Espero que, ao assistir, vocês consigam reconhecer um pouco da contribuição de cada um e perceber que até as pequenas ações fazem diferença no resultado coletivo.</p>
         <p>Obrigado pela parceria, pela paciência e pela colaboração ao longo dessa jornada.</p>
         <p class="personal-message-highlight"><strong>Que possamos continuar aprendendo, evoluindo e construindo coisas melhores juntos!</strong></p>
         <p class="personal-message-signoff">Com carinho e reconhecimento,<br><strong>Thalysson</strong></p>
+        <button class="surprise-button" id="openSurprise" type="button">Ver a surpresa</button>
       </article>
+
+      <dialog class="surprise-dialog" id="surpriseDialog" aria-labelledby="surpriseTitle">
+        <div class="surprise-dialog-header">
+          <h2 id="surpriseTitle">Uma surpresa para você</h2>
+          <button class="text-button" id="closeSurprise" type="button" aria-label="Fechar surpresa">Fechar</button>
+        </div>
+        <img
+          class="surprise-image"
+          src="exemplos/assets/Emblema%20CAMBA%C3%8D%20com%20Capacete%20Branco.png"
+          alt="Emblema CAMBAÍ com um piloto segurando um troféu"
+        >
+        <div class="surprise-actions">
+          <a
+            class="video-action"
+            href="exemplos/assets/Emblema%20CAMBA%C3%8D%20com%20Capacete%20Branco.png"
+            download="Emblema-CAMBAI.png"
+          >Baixar imagem</a>
+          <button class="surprise-button" id="printSurprise" type="button">Imprimir</button>
+        </div>
+      </dialog>
 
       <div class="content-heading">
         <span class="step-number">02</span>
